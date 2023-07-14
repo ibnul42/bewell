@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="flex flex-col">
       <div className="w-full relative bg-[url('/assets/footer_bg.png')] bg-cover bg-center lg:bg-top py-10 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-2 grid grid-cols-1 md:grid-cols-3">
+        <div className="max-w-7xl mx-auto px-2 grid grid-cols-1 md:grid-cols-3">
           <div className="flex flex-col">
             <Link to="/"><img src="/assets/logo.png" className='w-2/5 my-3' alt="logo" /></Link>
             <div className="flex flex-col">

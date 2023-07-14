@@ -17,7 +17,7 @@ const Header = ({ open, setOpen }) => {
   }
   return (
     <div className='bg-gradient-to-r from-[#84BFB5] to-[#A6CBC5] text-black'>
-      <div className="max-w-6xl mx-auto px-2 py-2 flex flex-col lg:flex-row justify-between items-center">
+      <div className="max-w-7xl mx-auto px-2 py-2 flex flex-col lg:flex-row justify-between items-center">
         <div className="flex w-full lg:w-auto justify-between">
           <div className="">
             <Link to="/"><img src="/assets/logo.png" className='w-2/5' alt="logo" /></Link>
