@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
+import Accordion from '../../components/accordion'
 
 const services = [
   {
@@ -64,7 +65,39 @@ const steps = [
   }
 ]
 
+const weightlossfaq = [
+  {
+    serial: '01',
+    title: 'How do I get my medication?',
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+  },
+  {
+    serial: '02',
+    title: 'What if I am not approved for a medication?',
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+  },
+  {
+    serial: '03',
+    title: 'Are there any hidden fees?',
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+  },
+  {
+    serial: '04',
+    title: 'What if I need to cancel?',
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+  },
+  {
+    serial: '05',
+    title: 'Do I have to pay for medication separately?',
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+  }
+]
+
 const Home = () => {
+  const handleColor = (step) => {
+    const color = step.color;
+    return `text-[${color}] font-bold text-4xl`;
+  };
   return (
     <div>
       <Helmet>
@@ -142,7 +175,7 @@ const Home = () => {
                 <img src={step.source} className='w-full' alt="star" />
               </div>
               <div className="absolute top-0 w-[315px] md:w-[330px] lg:w-[350px] 2xl:w-[380px] h-full space-y-2 px-6 py-5 text-center">
-                <p className={`font-bold ${index === 0 && 'text-[#7C3EDA]'} ${index === 1 && 'text-[#17CBBE]'}  ${index === 2 && 'text-[#FF3755]'} text-4xl`}>{step.title}</p>
+                <p className={handleColor(step)}>{step.title}</p>
                 <p className='font-medium text-2xl'>{step.name}</p>
                 <p className='text-[#666666] text-sm md:text-base'>{step.desc}</p>
               </div>
@@ -170,6 +203,18 @@ const Home = () => {
               <p className=''>Includes personalized telehealth appointments with provider & electronically sent prescription <span className='text-[#FD9177]'>to the pharmacy of your choice</span></p>
             </div>
           </div>
+        </div>
+
+
+        <div className="w-full flex flex-col gap-2 items-center text-center my-8">
+          <p className='text-3xl md:stext-5xl font-medium'>Weight Loss FAQ</p>
+          <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
+        </div>
+        <div className="space-y-3">
+          <Accordion title="weightlossfaq" items={weightlossfaq} />
+        </div>
+        <div className="flex justify-center">
+        <Link to="/" className='bg-[#FFDE17] px-5 md:px-8 lg:px-10 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
         </div>
       </section>
       {/* ------------------  weightloss section ------------------ */}
