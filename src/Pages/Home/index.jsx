@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import Accordion from '../../components/accordion'
+import DateSelector from '../../components/DateSelector'
 
 const services = [
   {
@@ -69,35 +70,79 @@ const weightlossfaq = [
   {
     serial: '01',
     title: 'How do I get my medication?',
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+    desc: "We work with a third-party compounding pharmacy to process your prescription. Your medication will be mailed directly from the pharmacy to your address on file, unless otherwise specified/discussed."
   },
   {
     serial: '02',
     title: 'What if I am not approved for a medication?',
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+    desc: "Like a traditional clinic, payment is for the provider’s service and the providers time spent with you in a telehealth appointment. If you are not approved, your provider is often able to offer alternative therapies that you may be medically qualified for. "
   },
   {
     serial: '03',
     title: 'Are there any hidden fees?',
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+    desc: "No, the prices of all our plans are displayed on our website. All you pay per month is the flat-fee (as shown)."
   },
   {
     serial: '04',
     title: 'What if I need to cancel?',
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+    desc: "You can cancel anytime! It's that easy. Bee Well offers a month-to-month subscription for weight loss medications. We do not require you to sign up for any specific length of time."
   },
   {
     serial: '05',
     title: 'Do I have to pay for medication separately?',
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto quam sapiente quod ex, ab, eligendi beatae autem cum vitae incidunt omnis ipsam iste voluptatibus dolor ratione. Non eius eaque praesentium."
+    desc: "Program costs displayed on our website include the medication cost for the GLP-1 program. For your convenience, you are only billed once per month for the total cost of the program. If medication is sent to the pharmacy of your choice, the cost of medication will be discussed in the appointment."
+  }
+]
+
+const generalfaq = [
+  {
+    serial: `01`,
+    title: `How do I pay my bill?`,
+    desc: `Bill pay will be directly through our electronic medical record platform via the patient portal.`
+  },
+  {
+    serial: `02`,
+    title: `How will I contact my healthcare provider?`,
+    desc: `After completing the medical intake forms - you will be prompted to set up a patient portal through our electronic medical record platform. Here you will have access to direct messaging and scheduling with your provider. `
+  },
+  {
+    serial: `03`,
+    title: `Does Bee Well accept insurance?`,
+    desc: `We do not accept any public or private health insurance plans, cost-sharing, or any other similar methods of payments. Clients are solely responsible for the cost of the service.
+    `
+  },
+  {
+    serial: `04`,
+    title: `Who can use Bee Well?`,
+    desc: `You must be 18 years or older. You must be a resident or physically located in Florida. You must have a demonstrated need for treatment.`
+  },
+  {
+    serial: `05`,
+    title: `Do medication, labs, and imaging orders count towards my deductible?`,
+    desc: `All medications, labs, and imaging orders that your insurance is billed for will count towards your insurance deductible.`
+  },
+  {
+    serial: `06`,
+    title: `Can Bee Well Health order referrals?`,
+    desc: `If medically necessary, Bee Well Health can order referrals for physical therapy, occupation therapy, social services, and specialists. Schedule an appointment to discuss with your provider!`
   }
 ]
 
 const Home = () => {
+  const [selectedData, setSelectedData] = useState({
+    year: '',
+    month: '',
+    day: '',
+  })
   const handleColor = (step) => {
     const color = step.color;
     return `text-[${color}] font-bold text-4xl`;
   };
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    console.log(selectedData)
+  }
   return (
     <div>
       <Helmet>
@@ -105,11 +150,12 @@ const Home = () => {
         <link rel="canonical" href="" />
       </Helmet>
       {/* ------------------  hero section ------------------ */}
-      <section className="relative bg-gradient-to-r from-[#6EB4A8] to-[#95C2BB]">
-        <img src="/assets/hero_bg.png" className='w-full min-h-[250px] md:min-h-[380px] max-h-[472px] object-cover xl:object-contain object-right lg:object-center' alt="" />
-        <div className="relative bg-gradient-to-r from-[#6EB4A8] to-[#95C2BB] md:bg-none md:absolute top-0 w-full h-full">
-          <div className="max-w-7xl mx-auto px-2 py-8 md:py-10 lg:py-16 flex flex-col gap-6">
-            <div className="flex flex-col gap-2 text-3xl md:text-4xl lg:text-5xl xl:text6xl font-semibold">
+      <section className="relative bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB]">
+        <img src="/assets/hero_mobile.svg" className='md:hidden w-full h-full object-cover xl:object-contain object-right lg:object-center' alt="" />
+        <img src="/assets/hero_bg.png" className='hidden md:block w-full min-h-[250px] md:min-h-[380px] max-h-[472px] object-cover xl:object-contain object-right lg:object-center' alt="" />
+        <div className="relative bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB] md:bg-none md:absolute top-0 w-full h-full">
+          <div className="max-w-7xl mx-auto px-2 py-8 md:py-10 xl:py-16 flex flex-col gap-6">
+            <div className="flex flex-col gap-2 text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold">
               <p className='text-white'>We provide total</p>
               <p className='text-[#FFDE17]'>health care solutions</p>
             </div>
@@ -164,7 +210,7 @@ const Home = () => {
           <p className='text-3xl md:stext-5xl font-medium'>Weight Loss Subscription</p>
           <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
         </div>
-        <p className='text-[#666666] font-semibold text-xl text-center'>How Weight Loss Subscription Works</p>
+        <p className='text-[#666666] font-semibold text-xl text-center'>How weight loss subscription works</p>
         <div className="flex justify-center">
           <p className='text-lg text-center text-[#666666] max-w-2xl'>Bee Well Health offers healthcare subscription services to our clients, providing access to high-quality practitioners for a fixed monthly price, no insurance needed, and no hidden fees. Cancel anytime! </p>
         </div>
@@ -175,7 +221,7 @@ const Home = () => {
                 <img src={step.source} className='w-full' alt="star" />
               </div>
               <div className="absolute top-0 w-[315px] md:w-[330px] lg:w-[350px] 2xl:w-[380px] h-full space-y-2 px-6 py-5 text-center">
-                <p className={handleColor(step)}>{step.title}</p>
+                <p className={`font-bold text-4xl`} style={{ color: step.color }}>{step.title}</p>
                 <p className='font-medium text-2xl'>{step.name}</p>
                 <p className='text-[#666666] text-sm md:text-base'>{step.desc}</p>
               </div>
@@ -192,7 +238,7 @@ const Home = () => {
             <div className="w-full h-[1px] bg-white"></div>
             <p className='text-3xl text-white font-bold'>$280/month</p>
             <div className="py-10 mt-5">
-              <p className=''>Includes personalized telehealth appointments with provider & medication + supplies <span className='text-[#14B0B0]'>shipped to your door</span></p>
+              <p className='text-center'>Includes personalized telehealth appointments with provider & medication + supplies <span className='text-[#14B0B0]'>shipped to your door</span></p>
             </div>
           </div>
           <div className="bg-[url('/assets/weightloss2.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
@@ -200,24 +246,73 @@ const Home = () => {
             <div className="w-full h-[1px] bg-white"></div>
             <p className='text-3xl text-white font-bold'>$80/month</p>
             <div className="py-10 mt-5">
-              <p className=''>Includes personalized telehealth appointments with provider & electronically sent prescription <span className='text-[#FD9177]'>to the pharmacy of your choice</span></p>
+              <p className='text-center'>Includes personalized telehealth appointments with provider & electronically sent prescription <span className='text-[#FD9177]'>to the pharmacy of your choice</span></p>
             </div>
           </div>
         </div>
-
-
         <div className="w-full flex flex-col gap-2 items-center text-center my-8">
           <p className='text-3xl md:stext-5xl font-medium'>Weight Loss FAQ</p>
           <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
         </div>
         <div className="space-y-3">
-          <Accordion title="weightlossfaq" items={weightlossfaq} />
+          <Accordion slColor="#6CB4A8" items={weightlossfaq} />
         </div>
         <div className="flex justify-center">
-        <Link to="/" className='bg-[#FFDE17] px-5 md:px-8 lg:px-10 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
+          <Link to="/" className='bg-[#FFDE17] px-5 md:px-8 lg:px-10 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
         </div>
       </section>
       {/* ------------------  weightloss section ------------------ */}
+      {/* ------------------  contact section ------------------ */}
+      <section className='max-w-7xl mx-auto px-2 py-10'>
+        <div className="w-full flex flex-col gap-2 items-center text-center my-8">
+          <p className='text-3xl md:stext-5xl font-medium'>Contact Us</p>
+          <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
+        </div>
+        <form onSubmit={submitHandler} className='px-5 py-4 bg-[#F6F6F6] grid grid-cols-2 gap-5 rounded'>
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
+            <label htmlFor="firstName">First Name</label>
+            <input type="text" name='firstName' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+          </div>
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
+            <label htmlFor="lastName">Last Name</label>
+            <input type="text" name='lastName' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+          </div>
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
+            <label htmlFor="birthdate">Birthdate</label>
+            <DateSelector setSelectedData={setSelectedData} />
+          </div>
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
+            <label htmlFor="email">Email</label>
+            <input type="text" name='email' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+          </div>
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
+            <label htmlFor="phone">Phone</label>
+            <input type="text" name='phone' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+          </div>
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
+            <label htmlFor="appointment">Ideal Appointment Date/Time</label>
+            <input type="text" name='appointment' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+          </div>
+          <div className="col-span-2 flex flex-col gap-2">
+            <label htmlFor="message">Message</label>
+            <textarea className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' name="message" id="" cols="5" rows="5"></textarea>
+          </div>
+          <div className="col-span-2 flex flex-col gap-2">
+            <input type="submit" value="SUBMIT" className='bg-[#FFDE17] py-3 px-12 rounded-md max-w-max' />
+          </div>
+
+        </form>
+      </section>
+      {/* ------------------  contact section ------------------ */}
+      {/* ------------------  general faq section ------------------ */}
+      <section className='max-w-7xl mx-auto px-2 py-10'>
+        <div className="w-full flex flex-col gap-2 items-center text-center my-8">
+          <p className='text-3xl md:stext-5xl font-medium'>General FAQ</p>
+          <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
+        </div>
+        <Accordion slColor="#FFDE17" items={generalfaq} />
+      </section>
+      {/* ------------------  general faq section ------------------ */}
     </div>
   )
 }
