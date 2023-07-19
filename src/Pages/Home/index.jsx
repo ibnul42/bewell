@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import Accordion from '../../components/accordion'
 import DateSelector from '../../components/DateSelector'
+import { NavHashLink } from 'react-router-hash-link'
 
 const services = [
   {
@@ -98,7 +99,9 @@ const generalfaq = [
   {
     serial: `01`,
     title: `How do I pay my bill?`,
-    desc: `Bill pay will be directly through our electronic medical record platform via the patient portal.`
+    desc: `Bill pay will be directly through our electronic medical record platform via the`,
+    link: `https://app2.rxnt.com/patientbillpay/#/`,
+    linktitle: `patient portal`
   },
   {
     serial: `02`,
@@ -129,6 +132,7 @@ const generalfaq = [
 ]
 
 const Home = () => {
+  const [selectedItem, setSelectedItem] = useState(null)
   const [selectedData, setSelectedData] = useState({
     year: '',
     month: '',
@@ -143,14 +147,18 @@ const Home = () => {
     e.preventDefault()
     console.log(selectedData)
   }
+
+  const viewClickHandler = (item, index) => {
+    setSelectedItem(index)
+  }
   return (
-    <div>
+    <div className='scroll-smooth'>
       <Helmet>
         <title>Home</title>
         <link rel="canonical" href="" />
       </Helmet>
       {/* ------------------  hero section ------------------ */}
-      <section className="relative bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB]">
+      <section id='home' className="relative bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB]">
         <img src="/assets/hero_mobile.svg" className='md:hidden w-full h-full object-cover xl:object-contain object-right lg:object-center' alt="" />
         <img src="/assets/hero_bg.png" className='hidden md:block w-full min-h-[250px] md:min-h-[380px] max-h-[472px] object-cover xl:object-contain object-right lg:object-center' alt="" />
         <div className="relative bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB] md:bg-none md:absolute top-0 w-full h-full">
@@ -159,20 +167,20 @@ const Home = () => {
               <p className='text-white'>We provide total</p>
               <p className='text-[#FFDE17]'>health care solutions</p>
             </div>
-            <div className="text-lg md:text-xl lg:text-2xl text-white">
-              <p>“Life is not merely being alive, but being well.”</p>
-              <p>– Marcus Aurelius</p>
+            <div className="text-white">
+              <p className='text-lg md:text-xl lg:text-2xl'>“Life is not merely being alive, but being well.”</p>
+              <p className='text-sm md:text-base lg:text-lg font-light'>– Marcus Aurelius</p>
             </div>
             <div className="flex justify-center md:justify-start gap-3 text-lg md:text-xl font-medium">
-              <Link to="/" className='px-5 md:px-6 py-3 bg-white hover:bg-[rgba(255,255,255,0.8)] rounded'>Patient Portal</Link>
-              <Link to="/" className='px-5 md:px-6 py-3 text-white border border-white hover:bg-white hover:text-black rounded'>Contact Us</Link>
+              <Link to="https://app2.rxnt.com/patientbillpay/#" target='_blank' className='px-5 md:px-6 py-3 bg-white hover:bg-[rgba(255,255,255,0.8)] rounded'>Patient Portal</Link>
+              <NavHashLink to="/#contact-us" smooth className='px-5 md:px-6 py-3 text-white border border-white hover:bg-white hover:text-black rounded'>Contact Us</NavHashLink>
             </div>
           </div>
         </div>
       </section>
       {/* ------------------  hero section ------------------ */}
       {/* ------------------  service section ------------------ */}
-      <section className='max-w-7xl mx-auto px-2 py-12'>
+      <section id='services' className='max-w-7xl mx-auto px-2 py-12'>
         <div className="">
           <div className="w-full flex flex-col gap-2 items-center text-center my-8">
             <p className='text-3xl md:stext-5xl font-medium'>Our Services</p>
@@ -180,14 +188,14 @@ const Home = () => {
           </div>
           <div className="flex flex-wrap justify-center gap-5">
             {services && services.map((service, index) => (
-              <div key={index} className="min-w-[250px] max-w-[280px] h-[310px] rounded-lg shadow-lg hover:shadow-2xl border flex flex-col gap-2 items-center justify-between px-2 text-center my-10">
+              <div key={index} className="min-w-[250px] max-w-[280px] rounded-lg shadow-lg hover:shadow-2xl border flex flex-col gap-2 items-center justify-between px-2 text-center my-10">
                 <img src={service.source} className='w-24 h-24 -mt-12' alt={service.title} />
                 <div className="w-full flex flex-col gap-1 items-center">
                   <p className='text-xl font-medium'>{service.title}</p>
                   <div className="bg-[#FFDE17] w-24 h-[2px] rounded"></div>
                 </div>
-                <p className='text-[#969696] my-3'>{service.desc}</p>
-                <button className='bg-[#FFDE17] py-2 px-6 rounded -mb-5 font-extrabold'>View All</button>
+                <p className={`text-[#969696] my-3 ${selectedItem === index? '': 'line-clamp-3'}`}>{service.desc}</p>
+                <button onClick={() => viewClickHandler(service, index)} className='bg-[#FFDE17] py-2 px-6 rounded -mb-5 font-extrabold'>View All</button>
               </div>
             ))}
           </div>
@@ -205,7 +213,7 @@ const Home = () => {
       </section>
       {/* ------------------  service section ------------------ */}
       {/* ------------------  weightloss section ------------------ */}
-      <section className="w-full relative overflow-hidden bg-[url('/assets/weightloss_bg.png')] bg-cover bg-center bg-repeat py-10 space-y-5">
+      <section id='weight-loss' className="w-full relative overflow-hidden bg-[url('/assets/weightloss_bg.png')] bg-cover bg-center bg-repeat py-10 space-y-5">
         <div className="w-full flex flex-col gap-2 items-center text-center my-8">
           <p className='text-3xl md:stext-5xl font-medium'>Weight Loss Subscription</p>
           <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
@@ -223,7 +231,7 @@ const Home = () => {
               <div className="absolute top-0 w-[315px] md:w-[330px] lg:w-[350px] 2xl:w-[380px] h-full space-y-2 px-6 py-5 text-center">
                 <p className={`font-bold text-4xl`} style={{ color: step.color }}>{step.title}</p>
                 <p className='font-medium text-2xl'>{step.name}</p>
-                <p className='text-[#666666] text-sm md:text-base'>{step.desc}</p>
+                <p className='text-[#666666] text-[13px] md:text-base'>{step.desc}</p>
               </div>
             </div>
           ))}
@@ -263,12 +271,12 @@ const Home = () => {
       </section>
       {/* ------------------  weightloss section ------------------ */}
       {/* ------------------  contact section ------------------ */}
-      <section className='max-w-7xl mx-auto px-2 py-10'>
+      <section id='contact-us' className='max-w-7xl mx-auto px-2 py-10'>
         <div className="w-full flex flex-col gap-2 items-center text-center my-8">
           <p className='text-3xl md:stext-5xl font-medium'>Contact Us</p>
           <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
         </div>
-        <form onSubmit={submitHandler} className='px-5 py-4 bg-[#F6F6F6] grid grid-cols-2 gap-5 rounded'>
+        <form onSubmit={submitHandler} className='px-5 md:px-7 lg:px-14 xl:px-20 py-4 bg-[#F6F6F6] grid grid-cols-2 gap-x-5 lg:gap-x-12 xl:gap-x-20 gap-y-5 rounded'>
           <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
             <label htmlFor="firstName">First Name</label>
             <input type="text" name='firstName' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
@@ -305,7 +313,7 @@ const Home = () => {
       </section>
       {/* ------------------  contact section ------------------ */}
       {/* ------------------  general faq section ------------------ */}
-      <section className='max-w-7xl mx-auto px-2 py-10'>
+      <section id='faq' className='max-w-7xl mx-auto px-2 py-10'>
         <div className="w-full flex flex-col gap-2 items-center text-center my-8">
           <p className='text-3xl md:stext-5xl font-medium'>General FAQ</p>
           <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>

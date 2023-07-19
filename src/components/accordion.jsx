@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 
 const Accordion = ({ items, slColor }) => {
@@ -22,7 +23,8 @@ const Accordion = ({ items, slColor }) => {
                         }}>{item.serial + '. '}</span>{item.title}</p>
                         <p className='w-[2%] text-2xl text-yellow-700'>{showDetail !== index ? '+' : '-'}</p>
                     </div>
-                    <p className={`${showDetail === index ? 'visible' : 'hidden'} text-sm px-3 md:px-6 pb-4`}>{item.desc}</p>
+                    <p className={`${showDetail === index ? 'visible' : 'hidden'} text-sm px-3 md:px-6 pb-4`}>{item.desc} {item.link && <Link to={item.link} target='_blank' className='underline text-yellow-600 hover:text-yellow-700'>{item.linktitle}</Link>}</p>
+                    
                 </div>
             ))}
         </div>

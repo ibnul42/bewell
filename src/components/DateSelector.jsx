@@ -57,7 +57,7 @@ const DatePicker = ({setSelectedData}) => {
             <select
                 id="year"
                 name="year"
-                className="px-5 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                className="px-4 lg:px-6 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                 value={year ? year : 'YYYY'}
                 onChange={handleYearChange}
             >
@@ -75,7 +75,7 @@ const DatePicker = ({setSelectedData}) => {
             <select
                 id="month"
                 name="month"
-                className="px-5 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                className="px-4 lg:px-6 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                 value={month ? month : 'MM'}
                 onChange={handleMonthChange}
             >
@@ -93,7 +93,7 @@ const DatePicker = ({setSelectedData}) => {
             <select
                 id="date"
                 name="date"
-                className="px-5 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                className="px-4 lg:px-6 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                 value={date ? date : 'DD'}
                 onChange={handleDateChange}
             >

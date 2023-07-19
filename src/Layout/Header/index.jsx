@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import {NavHashLink} from 'react-router-hash-link'
 
 const links = [
   { name: "services", link: "/#services" },
   { name: "Weight Loss Subscription", link: "/#weight-loss" },
-  { name: "contact us", link: "/#contact" },
+  { name: "contact us", link: "/#contact-us" },
   { name: "FAQ", link: "/#faq" },
 ]
 
@@ -20,7 +21,7 @@ const Header = ({ open, setOpen }) => {
       <div className="max-w-7xl mx-auto px-2 py-2 flex flex-col lg:flex-row justify-between items-center">
         <div className="flex w-full lg:w-auto justify-between items-center">
           <div className="">
-            <Link to="/"><img src="/assets/logo.png" className='w-8/12' alt="logo" /></Link>
+            <Link to="/"><img src="/assets/logo.png" className='w-8/12 xl:w-9/12 2xl:w-10/12' alt="logo" /></Link>
           </div>
 
           <div
@@ -49,10 +50,10 @@ const Header = ({ open, setOpen }) => {
           } z-50`}>
           <ul className='flex flex-col lg:flex-row gap-6'>
             {links.map((link, i) => (
-              <NavLink style={navLinkStyles} key={i} to={link.link} className='capitalize hover:text-white px-3 lg:px-0'>{link.name}</NavLink>
+              <NavHashLink onClick={() => setOpen(!open)} smooth style={navLinkStyles} key={i} to={link.link} className='capitalize hover:text-white px-3 lg:px-0'>{link.name}</NavHashLink>
             ))}
           </ul>
-          <Link to="/" className='bg-[#FFDE17] px-5 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
+          <Link to="https://app2.rxnt.com/patientbillpay/#" target='_blank' className='bg-[#FFDE17] px-5 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
         </div>
       </div>
     </div>
