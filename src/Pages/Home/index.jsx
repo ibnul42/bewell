@@ -158,18 +158,19 @@ const Home = () => {
         <link rel="canonical" href="" />
       </Helmet>
       {/* ------------------  hero section ------------------ */}
-      <section id='home' className="relative bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB]">
-        <img src="/assets/hero_mobile.svg" className='md:hidden w-full h-full object-cover xl:object-contain object-right lg:object-center' alt="" />
-        <img src="/assets/hero_bg.png" className='hidden md:block w-full min-h-[250px] md:min-h-[380px] max-h-[472px] object-cover xl:object-contain object-right lg:object-center' alt="" />
-        <div className="relative bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB] md:bg-none md:absolute top-0 w-full h-full">
-          <div className="max-w-7xl mx-auto px-2 py-8 md:py-10 xl:py-16 flex flex-col gap-6">
-            <div className="flex flex-col gap-2 text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold">
+      <section id='home' className="relative bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB] lg:hidden">
+        <div className="w-full py-5">
+          <img src="/assets/hero_mobile.svg" className='lg:hidden w-full' alt="hero" />
+        </div>
+        <div className="lg:absolute top-0 w-full h-full py-5">
+          <div className="max-w-7xl mx-auto px-2 py-8 flex flex-col gap-6 lg:gap-10">
+            <div className="flex flex-col gap-2 text-3xl font-semibold">
               <p className='text-white'>We provide total</p>
               <p className='text-[#FFDE17]'>health care solutions</p>
             </div>
             <div className="text-white">
-              <p className='text-lg md:text-xl lg:text-2xl'>“Life is not merely being alive, but being well.”</p>
-              <p className='text-sm md:text-base lg:text-lg font-light'>– Marcus Aurelius</p>
+              <p className='text-lg'>“Life is not merely being alive, but being well.”</p>
+              <p className='text-sm font-light'>– Marcus Aurelius</p>
             </div>
             <div className="flex justify-center md:justify-start gap-3 text-lg md:text-xl font-medium">
               <Link to="https://app2.rxnt.com/patientbillpay/#" target='_blank' className='px-5 md:px-6 py-3 bg-white hover:bg-[rgba(255,255,255,0.8)] rounded'>Patient Portal</Link>
@@ -178,6 +179,37 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <section id='home' className='hidden lg:block bg-gradient-to-r from-[#6BB3A7] to-[#95C2BB] py-5 xl:py-20 relative'>
+        <div className="max-w-7xl mx-auto flex justify-end relative">
+          <div className="absolute w-full h-full">
+            <div className="py-7 xl:py-9 flex flex-col justify-between px-2 h-full">
+              <div className="flex flex-col gap-2 text-3xl xl:text-5xl font-semibold">
+                <p className='text-white'>We provide total</p>
+                <p className='text-[#FFDE17]'>health care solutions</p>
+              </div>
+              <div className="text-white">
+                <p className='text-lg xl:text-xl'>“Life is not merely being alive, but being well.”</p>
+                <p className='text-sm font-light'>– Marcus Aurelius</p>
+              </div>
+              <div className="flex justify-center md:justify-start gap-3 text-lg md:text-xl font-medium">
+                <Link to="https://app2.rxnt.com/patientbillpay/#" target='_blank' className='px-5 md:px-6 py-3 bg-white hover:bg-[rgba(255,255,255,0.8)] rounded'>Patient Portal</Link>
+                <NavHashLink to="/#contact-us" smooth className='px-5 md:px-6 py-3 text-white border border-white hover:bg-white hover:text-black rounded'>Contact Us</NavHashLink>
+              </div>
+            </div>
+          </div>
+          <div className="h-[280px] xl:h-[380px]">
+            <img src="/assets/hero_bg.png" className='h-full' alt="hero" />
+          </div>
+        </div>
+        <div className="hidden absolute w-full h-full top-0 xl:flex justify-center">
+          <div className="flex-1"></div>
+          <div className="w-[1280px]"></div>
+          <div className="flex-1 py-[119px] flex items-end">
+            <div className="h-[2px] w-full bg-white"></div>
+          </div>
+        </div>
+      </section>
+
       {/* ------------------  hero section ------------------ */}
       {/* ------------------  service section ------------------ */}
       <section id='services' className='max-w-7xl mx-auto px-2 py-12'>
@@ -194,7 +226,7 @@ const Home = () => {
                   <p className='text-xl font-medium'>{service.title}</p>
                   <div className="bg-[#FFDE17] w-24 h-[2px] rounded"></div>
                 </div>
-                <p className={`text-[#969696] my-3 ${selectedItem === index? '': 'line-clamp-3'}`}>{service.desc}</p>
+                <p className={`text-[#969696] my-3 ${selectedItem === index ? '' : 'line-clamp-3'}`}>{service.desc}</p>
                 <button onClick={() => viewClickHandler(service, index)} className='bg-[#FFDE17] py-2 px-6 rounded -mb-5 font-extrabold'>View All</button>
               </div>
             ))}
