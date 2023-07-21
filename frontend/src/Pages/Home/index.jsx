@@ -173,7 +173,7 @@ const Home = () => {
               <p className='text-sm font-light'>– Marcus Aurelius</p>
             </div>
             <div className="flex justify-center md:justify-start gap-3 text-lg md:text-xl font-medium">
-              <Link to="https://app2.rxnt.com/patientbillpay/#" target='_blank' className='px-5 md:px-6 py-3 bg-white hover:bg-[rgba(255,255,255,0.8)] rounded'>Patient Portal</Link>
+              <Link to="https://app2.rxnt.com/phr/#/" target='_blank' className='px-5 md:px-6 py-3 bg-white hover:bg-[rgba(255,255,255,0.8)] rounded'>Patient Portal</Link>
               <NavHashLink to="/#contact-us" smooth className='px-5 md:px-6 py-3 text-white border border-white hover:bg-white hover:text-black rounded'>Contact Us</NavHashLink>
             </div>
           </div>
@@ -191,20 +191,20 @@ const Home = () => {
                 <p className='text-lg xl:text-xl'>“Life is not merely being alive, but being well.”</p>
                 <p className='text-sm font-light'>– Marcus Aurelius</p>
               </div>
-              <div className="flex justify-center md:justify-start gap-3 text-lg md:text-xl font-medium">
-                <Link to="https://app2.rxnt.com/patientbillpay/#" target='_blank' className='px-5 md:px-6 py-3 bg-white hover:bg-[rgba(255,255,255,0.8)] rounded'>Patient Portal</Link>
+              <div className="flex justify-center md:justify-start gap-3 text-lg md:text-xl font-medium z-10">
+                <Link to="https://app2.rxnt.com/phr/#/" target='_blank' className='px-5 md:px-6 py-3 bg-white hover:bg-[rgba(255,255,255,0.8)] rounded'>Patient Portal</Link>
                 <NavHashLink to="/#contact-us" smooth className='px-5 md:px-6 py-3 text-white border border-white hover:bg-white hover:text-black rounded'>Contact Us</NavHashLink>
               </div>
             </div>
           </div>
           <div className="h-[280px] xl:h-[380px]">
-            <img src="/assets/hero_bg.png" className='h-full' alt="hero" />
+            <img src="/assets/hero_bg.svg" className='h-full' alt="hero" />
           </div>
         </div>
         <div className="hidden absolute w-full h-full top-0 xl:flex justify-center">
           <div className="flex-1"></div>
           <div className="w-[1280px]"></div>
-          <div className="flex-1 py-[119px] flex items-end">
+          <div className="flex-1 py-[118px] flex items-end">
             <div className="h-[2px] w-full bg-white"></div>
           </div>
         </div>
@@ -257,13 +257,13 @@ const Home = () => {
         <div className="py-5 md:py-7 lg:py-20 flex flex-wrap gap-8 justify-center">
           {steps && steps.map((step, index) => (
             <div key={index} className="relative">
-              <div className="w-[315px] md:w-[330px] lg:w-[350px] 2xl:w-[380px]">
+              <div className="w-[300px] md:w-[330px]">
                 <img src={step.source} className='w-full' alt="star" />
               </div>
-              <div className="absolute top-0 w-[315px] md:w-[330px] lg:w-[350px] 2xl:w-[380px] h-full space-y-2 px-6 py-5 text-center">
+              <div className="absolute top-0 w-[300px] md:w-[330px] h-full space-y-2 px-6 py-5 text-center">
                 <p className={`font-bold text-4xl`} style={{ color: step.color }}>{step.title}</p>
                 <p className='font-medium text-2xl'>{step.name}</p>
-                <p className='text-[#666666] text-[13px] md:text-base'>{step.desc}</p>
+                <p className='text-[#666666] text-[13px] md:text-base px-3'>{step.desc}</p>
               </div>
             </div>
           ))}
@@ -276,7 +276,7 @@ const Home = () => {
           <div className="bg-[url('/assets/weightloss1.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className='text-xl text-white font-bold'>GLP-1 Weight Management</p>
             <div className="w-full h-[1px] bg-white"></div>
-            <p className='text-3xl text-white font-bold'>$280/month</p>
+            <p className='text-3xl text-white font-bold'>$399/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & medication + supplies <span className='text-[#14B0B0]'>shipped to your door</span></p>
             </div>
@@ -298,7 +298,7 @@ const Home = () => {
           <Accordion slColor="#6CB4A8" items={weightlossfaq} />
         </div>
         <div className="flex justify-center">
-          <Link to="/" className='bg-[#FFDE17] px-5 md:px-8 lg:px-10 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
+          <Link to="https://app2.rxnt.com/phr/#/" target="_blank" className='bg-[#FFDE17] px-5 md:px-8 lg:px-10 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
         </div>
       </section>
       {/* ------------------  weightloss section ------------------ */}

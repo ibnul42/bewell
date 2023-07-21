@@ -53,7 +53,7 @@ const Header = ({ open, setOpen }) => {
               <NavHashLink onClick={() => setOpen(!open)} smooth style={navLinkStyles} key={i} to={link.link} className='capitalize hover:text-white px-3 lg:px-0'>{link.name}</NavHashLink>
             ))}
           </ul>
-          <Link to="https://app2.rxnt.com/patientbillpay/#" target='_blank' className='bg-[#FFDE17] px-5 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
+          <Link to="https://app2.rxnt.com/phr/#" target='_blank' className='bg-[#FFDE17] px-5 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
         </div>
       </div>
     </div>

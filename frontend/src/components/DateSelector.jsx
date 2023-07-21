@@ -52,7 +52,7 @@ const DatePicker = ({setSelectedData}) => {
     const dates = Array.from({ length: getMaxDate() }, (_, index) => index + 1); // 1 to maximum date of the selected month
 
     return (
-        <div className="flex flex-wrap gap-2 justify-between">
+        <div className="flex flex-wrap gap-2 justify-around">
             {/* Year Selector */}
             <select
                 id="year"
@@ -75,7 +75,7 @@ const DatePicker = ({setSelectedData}) => {
             <select
                 id="month"
                 name="month"
-                className="px-4 lg:px-6 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                className="px-4 lg:px-6 py-3 xl:w-56 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                 value={month ? month : 'MM'}
                 onChange={handleMonthChange}
             >
