@@ -1,9 +1,10 @@
-const path = require('path');
+const path = require("path")
 const express = require("express")
 require("dotenv").config()
+const color = require("colors")
 const cors = require("cors")
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 
 const app = express()
 
@@ -11,19 +12,20 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+const fs = require("fs")
+
 // server frontend
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")))
-  app.use(express.static('/'))
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../frontend/dist")))
+//   app.use(express.static('/'))
 
-  app.use((req, res) =>
-    res.sendFile(path.join(__dirname, "../", "frontend", "dist", "index.html"))
+//   app.use((req, res) =>
+//     res.sendFile(path.join(__dirname, "../", "frontend", "dist", "index.html"))
 
-  )
-} else {
-  app.get("/", (req, res) => res.send("please setup production server before"))
-}
-
+//   )
+// } else {
+//   app.get("/", (req, res) => res.send("please setup production server before"))
+// }
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
