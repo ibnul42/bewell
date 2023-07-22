@@ -13,7 +13,7 @@ const Layout = () => {
       <div className="">
         <Header open={open} setOpen={setOpen} />
       </div>
-      <div className="flex-1 flex">
+      <div className="flex-1 h-full">
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/blog' element={<BlogPage />} />

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import {NavHashLink} from 'react-router-hash-link'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavHashLink } from 'react-router-hash-link'
 
 const links = [
   { name: "services", link: "/#services" },
@@ -11,10 +11,14 @@ const links = [
 ]
 
 const Header = ({ open, setOpen }) => {
+  const location = useLocation()
+  console.log(location)
   const navLinkStyles = ({ isActive }) => {
-    return {
-      // color: isActive ? "#dba124" : "",
-      // borderBottom: isActive ? "3px solid #6366f1" : null,
+    if (location.pathname !== '/') {
+      return {
+        color: isActive ? "#fff" : "",
+        // borderBottom: isActive ? "3px solid #6366f1" : null,
+      }
     }
   }
   return (
@@ -43,10 +47,9 @@ const Header = ({ open, setOpen }) => {
             ></div>
           </div>
         </div>
-        <div className={`flex flex-col gap-3 lg:flex-row items-start lg:items-center pt-10 lg:pt-0 justify-start lg:justify-center absolute left-0 lg:static w-full lg:h-auto lg:w-auto transition-all duration-500 ease-in ${
-            open
-              ? "opacity-100 top-[75px] bg-gradient-to-r from-[#84BFB5] to-[#A6CBC5] lg:bg-transparent h-[calc(100vh-75px)]"
-              : "opacity-0 lg:opacity-100 top-[75px] left-[-500px]"
+        <div className={`flex flex-col gap-3 lg:flex-row items-start lg:items-center pt-10 lg:pt-0 justify-start lg:justify-center absolute left-0 lg:static w-full lg:h-auto lg:w-auto transition-all duration-500 ease-in ${open
+            ? "opacity-100 top-[75px] bg-gradient-to-r from-[#84BFB5] to-[#A6CBC5] lg:bg-none h-[calc(100vh-75px)]"
+            : "opacity-0 lg:opacity-100 top-[75px] left-[-500px]"
           } z-50`}>
           <ul className='flex flex-col lg:flex-row gap-6'>
             {links.map((link, i) => (
