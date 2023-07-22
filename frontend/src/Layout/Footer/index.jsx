@@ -48,7 +48,7 @@ const Footer = () => {
                   <MdEmail />
                   <p className='font-bold'>Email</p>
                 </div>
-                <a href="mailto:info@beewell.health">info@beewell.health</a>
+                <a href="mailto:info@beewell.live">info@beewell.live</a>
               </div>
             </ul>
           </div>

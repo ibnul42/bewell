@@ -3,6 +3,7 @@ import Footer from './Footer'
 import Home from '../Pages/Home'
 import { Route, Routes } from 'react-router-dom'
 import { useState } from 'react'
+import BlogPage from '../Pages/Blog'
 const Layout = () => {
   const [open, setOpen] = useState(false)
 
@@ -12,9 +13,10 @@ const Layout = () => {
       <div className="">
         <Header open={open} setOpen={setOpen} />
       </div>
-      <div className="flex-1">
+      <div className="flex-1 flex">
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/blog' element={<BlogPage />} />
         </Routes>
       </div>
       <div className="">

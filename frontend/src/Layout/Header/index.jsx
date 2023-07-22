@@ -7,6 +7,7 @@ const links = [
   { name: "Weight Loss Subscription", link: "/#weight-loss" },
   { name: "contact us", link: "/#contact-us" },
   { name: "FAQ", link: "/#faq" },
+  { name: "Blog", link: "/blog" },
 ]
 
 const Header = ({ open, setOpen }) => {
@@ -23,7 +24,6 @@ const Header = ({ open, setOpen }) => {
           <div className="">
             <Link to="/"><img src="/assets/logo.png" className='w-8/12 xl:w-9/12 2xl:w-10/12' alt="logo" /></Link>
           </div>
-
           <div
             className={`h-12 w-12 flex flex-col justify-between items-center rounded cursor-pointer lg:hidden border ${open ? "p-2" : "p-3"
               } z-50`}
