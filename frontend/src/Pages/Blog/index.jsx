@@ -9,7 +9,7 @@ const BlogPage = () => {
                 <link rel="canonical" href="" />
             </Helmet>
             <div className=" w-full h-full flex justify-center items-center">
-                <p className=''>No content right now, please come later</p>
+                <p className='py-10'>Coming Soon! Please 🐝 patient! Time is honey.</p>
             </div>
         </div>
     )
