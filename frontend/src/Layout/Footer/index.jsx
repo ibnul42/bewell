@@ -27,6 +27,7 @@ const Footer = () => {
               <NavHashLink smooth to="/#services" className='flex gap-2 items-center'><img src="/assets/angle-right.svg" className='w-3 h-3' alt="right" />Services</NavHashLink>
               <NavHashLink smooth to="/#contact-us" className='flex gap-2 items-center'><img src="/assets/angle-right.svg" className='w-3 h-3' alt="right" />Contact</NavHashLink>
               <NavHashLink smooth to="/#faq" className='flex gap-2 items-center'><img src="/assets/angle-right.svg" className='w-3 h-3' alt="right" />FAQ&apos;s</NavHashLink>
+              <NavHashLink smooth to="/blog" className='flex gap-2 items-center'><img src="/assets/angle-right.svg" className='w-3 h-3' alt="right" />The Buzz</NavHashLink>
               <Link to="https://app2.rxnt.com/phr/#/" target='_blank' className='flex gap-2 items-center'><img src="/assets/angle-right.svg" className='w-3 h-3' alt="right" />Patient Portal</Link>
             </ul>
           </div>

@@ -7,7 +7,7 @@ const links = [
   { name: "Weight Loss Subscription", link: "/#weight-loss" },
   { name: "contact us", link: "/#contact-us" },
   { name: "FAQ", link: "/#faq" },
-  { name: "Blog", link: "/blog" },
+  { name: "The Buzz", link: "/blog" },
 ]
 
 const Header = ({ open, setOpen }) => {
@@ -48,8 +48,8 @@ const Header = ({ open, setOpen }) => {
           </div>
         </div>
         <div className={`flex flex-col gap-3 lg:flex-row items-start lg:items-center pt-10 lg:pt-0 justify-start lg:justify-center absolute left-0 lg:static w-full lg:h-auto lg:w-auto transition-all duration-500 ease-in ${open
-            ? "opacity-100 top-[75px] bg-gradient-to-r from-[#84BFB5] to-[#A6CBC5] lg:bg-none h-[calc(100vh-75px)]"
-            : "opacity-0 lg:opacity-100 top-[75px] left-[-500px]"
+          ? "opacity-100 top-[75px] bg-gradient-to-r from-[#84BFB5] to-[#A6CBC5] lg:bg-none h-[calc(100vh-75px)]"
+          : "opacity-0 lg:opacity-100 top-[75px] left-[-500px]"
           } z-50`}>
           <ul className='flex flex-col lg:flex-row gap-6'>
             {links.map((link, i) => (

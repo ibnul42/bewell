@@ -4,6 +4,8 @@ import Home from '../Pages/Home'
 import { Route, Routes } from 'react-router-dom'
 import { useState } from 'react'
 import BlogPage from '../Pages/Blog'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 const Layout = () => {
   const [open, setOpen] = useState(false)
 
@@ -22,6 +24,7 @@ const Layout = () => {
       <div className="">
         <Footer />
       </div>
+      <ToastContainer />
     </div>
   )
 }

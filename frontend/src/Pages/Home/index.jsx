@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Accordion from '../../components/accordion'
 import DateSelector from '../../components/DateSelector'
 import { NavHashLink } from 'react-router-hash-link'
+import { toast } from 'react-toastify'
 
 const services = [
   {
@@ -110,13 +111,13 @@ const generalfaq = [
   },
   {
     serial: `03`,
-    title: `Does Bee Well accept insurance?`,
+    title: `Does Health Bee Well accept insurance?`,
     desc: `We do not accept any public or private health insurance plans, cost-sharing, or any other similar methods of payments. Clients are solely responsible for the cost of the service.
     `
   },
   {
     serial: `04`,
-    title: `Who can use Bee Well?`,
+    title: `Who can use Health Bee Well?`,
     desc: `You must be 18 years or older. You must be a resident or physically located in Florida. You must have a demonstrated need for treatment.`
   },
   {
@@ -145,6 +146,7 @@ const Home = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
+    toast.success('Hive Five!')
     console.log(selectedData)
   }
 
@@ -231,14 +233,15 @@ const Home = () => {
               </div>
             ))}
           </div>
-          <div className="w-full bg-[#6CB4A8] py-7 px-6 flex flex-col gap-3 md:flex-row justify-between md:gap-10 md:justify-center items-center rounded-md text-white">
-            <div className="text-3xl md:text-4xl font-medium text-center md:px-5">
+          <div className="w-full bg-[#6CB4A8] py-7 px-3 flex flex-col gap-3 md:flex-row justify-between md:gap-10 md:justify-center items-center rounded-md text-white">
+            <div className="flex-shrink-0 text-3xl font-medium text-center md:px-5">
               <p>Non-weight related</p>
               <p>telehealth visits!</p>
             </div>
-            <div className="flex flex-col lg:flex-row justify-end gap-3 md:gap-6">
-              <button className='bg-[rgba(163,189,49,1)] border-4 border-white flex flex-col items-center py-4 md:px-10 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$99</span><span>New Patient</span></button>
-              <button className='bg-[rgba(219,150,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-10 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$80</span><span>Follow-up</span></button>
+            <div className="flex flex-col lg:flex-row lg:flex-wrap justify-end gap-3 md:gap-6">
+              <button className='bg-[rgba(163,189,49,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$99</span><span>New Patient</span></button>
+              <button className='bg-[rgba(219,150,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$80</span><span>Follow-up</span></button>
+              <button className='bg-[rgba(239,80,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$65</span><span>Urgent Care</span></button>
             </div>
           </div>
         </div>
@@ -278,7 +281,10 @@ const Home = () => {
             <div className="w-full h-[1px] bg-white"></div>
             <p className='text-3xl text-white font-bold'>$399/month</p>
             <div className="py-10 mt-5">
-              <p className='text-center'>Includes personalized telehealth appointments with provider & medication + supplies <span className='text-[#14B0B0]'>shipped to your door</span></p>
+              <p className='text-center'>Includes personalized telehealth appointments with provider & medication + supplies {` `}
+              <span className='text-[#14B0B0]'>Semaglutide (Ozempic/Wegovy)</span>
+              {/* <span className='text-[#14B0B0]'>shipped to your door</span> */}
+              </p>
             </div>
           </div>
           <div className="bg-[url('/assets/weightloss2.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
@@ -286,7 +292,10 @@ const Home = () => {
             <div className="w-full h-[1px] bg-white"></div>
             <p className='text-3xl text-white font-bold'>$80/month</p>
             <div className="py-10 mt-5">
-              <p className='text-center'>Includes personalized telehealth appointments with provider & electronically sent prescription <span className='text-[#FD9177]'>to the pharmacy of your choice</span></p>
+              <p className='text-center'>Includes personalized telehealth appointments with provider & electronically sent prescription {` `}
+              <span className='text-[#FD9177]'>Phentermine, Contrave, Plenty</span>
+              {/* <span className='text-[#FD9177]'>to the pharmacy of your choice</span> */}
+              </p>
             </div>
           </div>
         </div>
@@ -338,7 +347,7 @@ const Home = () => {
             <textarea className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' name="message" id="" cols="5" rows="5"></textarea>
           </div>
           <div className="col-span-2 flex flex-col gap-2">
-            <input type="submit" value="SUBMIT" className='bg-[#FFDE17] py-3 px-12 rounded-md max-w-max' />
+            <input type="submit" value="SUBMIT" className='bg-[#FFDE17] py-3 px-12 rounded-md max-w-max cursor-pointer' />
           </div>
 
         </form>
