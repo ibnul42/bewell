@@ -12,7 +12,6 @@ const links = [
 
 const Header = ({ open, setOpen }) => {
   const location = useLocation()
-  console.log(location)
   const navLinkStyles = ({ isActive }) => {
     if (location.pathname !== '/') {
       return {

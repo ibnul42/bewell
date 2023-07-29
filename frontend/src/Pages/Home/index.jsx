@@ -111,13 +111,13 @@ const generalfaq = [
   },
   {
     serial: `03`,
-    title: `Does Health Bee Well accept insurance?`,
+    title: `Does Bee Well Health accept insurance?`,
     desc: `We do not accept any public or private health insurance plans, cost-sharing, or any other similar methods of payments. Clients are solely responsible for the cost of the service.
     `
   },
   {
     serial: `04`,
-    title: `Who can use Health Bee Well?`,
+    title: `Who can use Bee Well Health?`,
     desc: `You must be 18 years or older. You must be a resident or physically located in Florida. You must have a demonstrated need for treatment.`
   },
   {
@@ -147,7 +147,6 @@ const Home = () => {
   const submitHandler = (e) => {
     e.preventDefault()
     toast.success('Hive Five!')
-    console.log(selectedData)
   }
 
   const viewClickHandler = (item, index) => {
@@ -278,23 +277,23 @@ const Home = () => {
         <div className="flex flex-wrap justify-center gap-5 md:gap-8 lg:gap-10">
           <div className="bg-[url('/assets/weightloss1.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className='text-xl text-white font-bold'>GLP-1 Weight Management</p>
-            <div className="w-full h-[1px] bg-white"></div>
+            <div className="w-full text-white text-center">Semaglutide (Ozempic/Wegovy)</div>
             <p className='text-3xl text-white font-bold'>$399/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & medication + supplies {` `}
-              <span className='text-[#14B0B0]'>Semaglutide (Ozempic/Wegovy)</span>
-              {/* <span className='text-[#14B0B0]'>shipped to your door</span> */}
+              {/* <span className='text-[#14B0B0]'>Semaglutide (Ozempic/Wegovy)</span> */}
+              <span className='text-[#14B0B0]'>shipped to your door</span>
               </p>
             </div>
           </div>
           <div className="bg-[url('/assets/weightloss2.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className='text-xl text-white font-bold'>Medical Weight Loss</p>
-            <div className="w-full h-[1px] bg-white"></div>
+            <div className="w-full text-white text-center">Phentermine, Contrave, Plenty</div>
             <p className='text-3xl text-white font-bold'>$80/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & electronically sent prescription {` `}
-              <span className='text-[#FD9177]'>Phentermine, Contrave, Plenty</span>
-              {/* <span className='text-[#FD9177]'>to the pharmacy of your choice</span> */}
+              {/* <span className='text-[#FD9177]'>Phentermine, Contrave, Plenty</span> */}
+              <span className='text-[#FD9177]'>to the pharmacy of your choice</span>
               </p>
             </div>
           </div>
