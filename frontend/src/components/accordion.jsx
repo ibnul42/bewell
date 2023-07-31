@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 const Accordion = ({ items, slColor }) => {
     const [showDetail, setShowDetail] = useState(null)
     const expandHandler = (index) => {
-        console.log(slColor)
         if (showDetail === index) setShowDetail(null)
         else setShowDetail(index)
     }
