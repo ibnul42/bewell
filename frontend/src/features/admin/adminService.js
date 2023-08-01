@@ -1,31 +1,20 @@
 import axios from "axios"
 
-const API_URL = `${import.meta.env.VITE_DOMAIN}/api/admin`
+const API_URL = `${import.meta.env.VITE_DOMAIN}/api`
 
 // login user
 const getSteps = async () => {
-    const response = await axios.get(API_URL + '/all-steps',)
-    console.log(response.data)
+    const response = await axios.get(API_URL + '/admin/all-steps',)
 
-    if (response.data) {
-        localStorage.setItem('user', JSON.stringify(response.data))
-    }
+    // if (response.data) {
+    //     localStorage.setItem('user', JSON.stringify(response.data))
+    // }
     return response.data
 }
 
 const addContact = async (data) => {
-    // if(response.data) {
-    //     localStorage.setItem('user', JSON.stringify(response.data))
-    // } 
-    // return response.data
-
-    // const token = JSON.parse(localStorage.getItem("user"))["token"]
-    //   const config = {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   }
-
     try {
-        const response = await axios.post(API_URL + '/contact/create', data)
+        const response = await axios.post(API_URL + '/admin/contact/create', data)
         return response.data
     } catch (error) {
         if (error.response.status === 400) {
@@ -37,12 +26,24 @@ const addContact = async (data) => {
     }
 }
 
-
-
+const getContacts = async () => {
+    try {
+        const response = await axios.get(API_URL + '/admin/contacts')
+        return response.data
+    } catch (error) {
+        if (error.response.status === 400) {
+            console.log(error.response)
+            throw new Error(error.response.data.msg)
+        } else {
+            throw new Error("An error occurred!")
+        }
+    }
+}
 
 const authService = {
     getSteps,
-    addContact
+    addContact,
+    getContacts
 }
 
 export default authService

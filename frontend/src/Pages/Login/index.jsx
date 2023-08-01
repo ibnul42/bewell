@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { login } from "../../features/auth/authSlice"
+import { login, reset } from "../../features/auth/authSlice"
 
 const Login = () => {
   const location = useLocation()
@@ -22,18 +22,24 @@ const Login = () => {
   const { user, isLoading, isSuccess, isError, message, isLoggedIn } =
     useSelector((state) => state.auth)
 
+  const userData = localStorage.getItem('user')
+
   useEffect(() => {
-    if (isError) {
+    if (userData) {
+      navigate('/admin/dashboard')
+    } else if (isError) {
       toast.error(message)
+      dispatch(reset())
+    } else if (isLoggedIn && isSuccess) {
+      toast.success('Login Successfull!')
+      dispatch(reset())
+      navigate('/admin/dashboard')
     }
-    // if (logoutUser) {
-    //   toast.success("Logout successfull!")
-    // }
-    if (user && logoutUser === false) {
+    else if (user) {
       toast.success("Login successfull!")
-      navigate("/admin/profile")
+      navigate("/admin/dashboard")
     }
-  }, [user, isSuccess, isError, logoutUser])
+  }, [user, isError, message, dispatch, isLoggedIn, isSuccess, navigate])
 
   const onChange = (e) => {
     const { name, value } = e.target
@@ -45,7 +51,8 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    setLogoutUser(false)
+    console.log(inputValue)
+    // setLogoutUser(false)
     dispatch(login(inputValue))
   }
 
@@ -89,7 +96,7 @@ const Login = () => {
         </div>
         <div className="flex items-center justify-center">
           <button
-            className="bg-primary hover:bg-hover text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-primary border hover:bg-slate-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Sign In

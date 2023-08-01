@@ -1,11 +1,16 @@
 import Header from './Header'
 import Footer from './Footer'
 import Home from '../Pages/Home'
+import Login from '../Pages/Login'
 import { Route, Routes } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import BlogPage from '../Pages/Blog'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
+import Dashboard from '../Pages/Admin/Dashboard/indes'
+import { useDispatch } from 'react-redux'
+import { getUser } from '../features/auth/authSlice'
+import Protected from '../app/Protected'
 const Layout = () => {
   const [open, setOpen] = useState(false)
 
@@ -19,6 +24,10 @@ const Layout = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/blog' element={<BlogPage />} />
+          <Route path='/login' element={<Login />} />
+          {/* <Route element={<Protected />}> */}
+            <Route path='/admin/dashboard' element={<Dashboard />} />
+          {/* </Route> */}
         </Routes>
       </div>
       <div className="">
