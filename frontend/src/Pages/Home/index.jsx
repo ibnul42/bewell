@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import Accordion from '../../components/accordion'
 import DateSelector from '../../components/DateSelector'
 import { NavHashLink } from 'react-router-hash-link'
 import { toast } from 'react-toastify'
+import { addContact, getSteps } from '../../features/admin/adminSlice'
 
 const services = [
   {
@@ -41,30 +43,6 @@ const services = [
     title: 'Sexual Health',
     source: '/assets/sex-health.png',
     desc: 'Birth Control Prescription, Erectile Dysfunction, HIV Testing, Pregnancy Testing, Yeast Infection Treatment, Emergency Contraception'
-  }
-]
-
-const steps = [
-  {
-    title: 'Step 1',
-    color: '#7C3EDA',
-    name: 'Medical History',
-    source: '/assets/Star2.png',
-    desc: "Complete a simple medical history form so your provider can develop the best treatment plan for you. It's fast, easy, and free."
-  },
-  {
-    title: 'Step 2',
-    color: '#17CBBE',
-    name: 'Online Visit',
-    source: '/assets/Star3.png',
-    desc: 'Speak to your new healthcare provider licensed to treat your condition with a simple online audio-visual appointment conversation.'
-  },
-  {
-    title: 'Step 3',
-    color: '#FF3755',
-    name: 'Receive Medications',
-    source: '/assets/Star4.png',
-    desc: 'If medically appropriate, receive your medication every 30/60/90 days. All GLP-1 Plans come with free shipping directly to your door! Follow up with your provider any time you need assistance.'
   }
 ]
 
@@ -139,6 +117,50 @@ const Home = () => {
     month: '',
     day: '',
   })
+
+  const [inputValue, setInputValue] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    appointtime: "",
+    message: "",
+  })
+
+  const { firstName, lastName, email, phone, appointtime, message } = inputValue
+
+  const dispatch = useDispatch()
+  const { steps, msg, isError, isContactAdded } = useSelector((state) => state.admin)
+
+  useEffect(() => {
+    if (isContactAdded) {
+      setInputValue({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        appointtime: "",
+        message: "",
+      })
+      setSelectedData({
+        year: '',
+        month: '',
+        day: '',
+      })
+      toast.success('Hive Five!')
+    }
+    else if (isError) toast.error(msg)
+    if (!steps) dispatch(getSteps())
+  }, [steps, dispatch, msg, isContactAdded, isError])
+
+  const onChange = (e) => {
+    const { name, value } = e.target
+    setInputValue((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
   const handleColor = (step) => {
     const color = step.color;
     return `text-[${color}] font-bold text-4xl`;
@@ -146,7 +168,10 @@ const Home = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    toast.success('Hive Five!')
+    dispatch(addContact({
+      ...inputValue,
+      birthday: selectedData
+    }))
   }
 
   const viewClickHandler = (item, index) => {
@@ -281,8 +306,8 @@ const Home = () => {
             <p className='text-3xl text-white font-bold'>$399/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & medication + supplies {` `}
-              {/* <span className='text-[#14B0B0]'>Semaglutide (Ozempic/Wegovy)</span> */}
-              <span className='text-[#14B0B0]'>shipped to your door</span>
+                {/* <span className='text-[#14B0B0]'>Semaglutide (Ozempic/Wegovy)</span> */}
+                <span className='text-[#14B0B0]'>shipped to your door</span>
               </p>
             </div>
           </div>
@@ -292,8 +317,8 @@ const Home = () => {
             <p className='text-3xl text-white font-bold'>$80/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & electronically sent prescription {` `}
-              {/* <span className='text-[#FD9177]'>Phentermine, Contrave, Plenty</span> */}
-              <span className='text-[#FD9177]'>to the pharmacy of your choice</span>
+                {/* <span className='text-[#FD9177]'>Phentermine, Contrave, Plenty</span> */}
+                <span className='text-[#FD9177]'>to the pharmacy of your choice</span>
               </p>
             </div>
           </div>
@@ -319,11 +344,11 @@ const Home = () => {
         <form onSubmit={submitHandler} className='px-5 md:px-7 lg:px-14 xl:px-20 py-4 bg-[#F6F6F6] grid grid-cols-2 gap-x-5 lg:gap-x-12 xl:gap-x-20 gap-y-5 rounded'>
           <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
             <label htmlFor="firstName">First Name</label>
-            <input type="text" name='firstName' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+            <input required type="text" name='firstName' value={firstName} onChange={onChange} className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
             <label htmlFor="lastName">Last Name</label>
-            <input type="text" name='lastName' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+            <input type="text" name='lastName' value={lastName} onChange={onChange} className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
             <label htmlFor="birthdate">Birthdate</label>
@@ -331,19 +356,19 @@ const Home = () => {
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
             <label htmlFor="email">Email</label>
-            <input type="text" name='email' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+            <input required type="text" name='email' value={email} onChange={onChange} className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
             <label htmlFor="phone">Phone</label>
-            <input type="text" name='phone' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+            <input required type="text" name='phone' value={phone} onChange={onChange} className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
-            <label htmlFor="appointment">Ideal Appointment Date/Time</label>
-            <input type="text" name='appointment' className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
+            <label htmlFor="appointtime">Ideal Appointment Date/Time</label>
+            <input type="text" name='appointtime' value={appointtime} onChange={onChange} className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' />
           </div>
           <div className="col-span-2 flex flex-col gap-2">
             <label htmlFor="message">Message</label>
-            <textarea className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' name="message" id="" cols="5" rows="5"></textarea>
+            <textarea id="message" value={message} onChange={onChange} className='border border-[#969696] py-2 px-2 rounded-md focus-within:border-blue-500 focus-within:outline-0' name="message" cols="5" rows="5"></textarea>
           </div>
           <div className="col-span-2 flex flex-col gap-2">
             <input type="submit" value="SUBMIT" className='bg-[#FFDE17] py-3 px-12 rounded-md max-w-max cursor-pointer' />

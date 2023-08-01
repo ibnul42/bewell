@@ -47,7 +47,7 @@ const DatePicker = ({setSelectedData}) => {
     };
 
     // Generate arrays for years, months, and dates
-    const years = Array.from({ length: 201 }, (_, index) => currentYear - 100 + index); // 100 years before and after the current year
+    const years = Array.from({ length: 101 }, (_, index) => currentYear - 100 + index); // 100 years before and after the current year
     const months = Array.from({ length: 12 }, (_, index) => index + 1); // January to December
     const dates = Array.from({ length: getMaxDate() }, (_, index) => index + 1); // 1 to maximum date of the selected month
 
