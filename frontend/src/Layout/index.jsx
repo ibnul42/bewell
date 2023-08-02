@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify'
 import Dashboard from '../Pages/Admin/Dashboard/indes'
 import { useDispatch } from 'react-redux'
 import { getUser } from '../features/auth/authSlice'
-import Protected from '../app/Protected'
+import ProtectedRoute from '../utils/ProtectedRoute'
 const Layout = () => {
   const [open, setOpen] = useState(false)
 
@@ -25,9 +25,10 @@ const Layout = () => {
           <Route path='/' element={<Home />} />
           <Route path='/blog' element={<BlogPage />} />
           <Route path='/login' element={<Login />} />
-          {/* <Route element={<Protected />}> */}
+          {/* <ProtectedRoute path="/admin/dashboard" element={<Dashboard />} /> */}
+          <Route element={<ProtectedRoute />}>
             <Route path='/admin/dashboard' element={<Dashboard />} />
-          {/* </Route> */}
+          </Route>
         </Routes>
       </div>
       <div className="">
