@@ -7,6 +7,20 @@ const getAllSteps = asyncHandler(async (req, res) => {
     res.status(200).json(steps)
 })
 
+const getSingleStep = asyncHandler(async (req, res) => {
+    const { id } = req.params
+
+    if (id.length !== 24) {
+        res.status(404).json({ message: 'Step not found' })
+    }
+    const step = await Step.findById(id)
+    if (!step) {
+        res.status(404).json({ message: 'Step not found' })
+    }
+
+    res.status(200).json(step)
+})
+
 const createStep = asyncHandler(async (req, res) => {
     const { title, color, name, source, desc } = req.body
 
@@ -40,11 +54,10 @@ const updateStep = asyncHandler(async (req, res) => {
     const { name, desc } = req.body
     const { step } = req.params
 
-    // check if id is available
-    // if (!id) {
-    //     res.status(404)
-    //     throw new Error('Invalid step id')
-    // }
+    if (desc.length > 192) {
+        res.status(404)
+        throw new Error('Characters must be at most 92 characters')
+    }
 
     const stepExists = await Step.findById(step)
 
@@ -62,7 +75,7 @@ const updateStep = asyncHandler(async (req, res) => {
     }
 
 
-    res.status(200).json({ msg: 'Step updated successfully!' })
+    res.status(200).json({ message: 'Step updated successfully!' })
 })
 
 const getAllContacts = asyncHandler(async (req, res) => {
@@ -110,5 +123,6 @@ module.exports = {
     createStep,
     updateStep,
     getAllContacts,
-    createContact
+    createContact,
+    getSingleStep
 }

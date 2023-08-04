@@ -1,30 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getContacts } from '../../../features/admin/adminSlice'
+import { getContacts, getSteps } from '../../../features/admin/adminSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import { logout, reset } from '../../../features/auth/authSlice'
 import { toast } from 'react-toastify'
+import { TbMailForward } from 'react-icons/tb'
+import { IoMdExpand } from 'react-icons/io'
+import { AiFillEdit } from 'react-icons/ai'
+import Expand from '../../../components/Expand'
 
 const Dashboard = () => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { contacts } = useSelector((state) => state.admin)
+    const [currentContact, setCurrentContact] = useState(null)
+
+    const { contacts, steps } = useSelector((state) => state.admin)
     const { user, isLoggedOut, isLoggedIn } = useSelector((state) => state.admin)
 
-    const userData = localStorage.getItem('user')
 
     useEffect(() => {
-        // if (isLoggedOut) {
-        //     toast.success('Logged out successfully')
-        //     dispatch(reset())
-        //     navigate('/login')
-        // } 
-        if (!userData) {
-            navigate('/login')
-        }
         if (!contacts) dispatch(getContacts())
-    }, [contacts, dispatch, userData, navigate])
+        if (!steps) dispatch(getSteps())
+    }, [contacts, dispatch, steps])
+
+    const contactHandler = (item) => {
+        setCurrentContact(item)
+    }
 
     const logoutHandler = () => {
         dispatch(logout())
@@ -39,15 +40,63 @@ const Dashboard = () => {
                 <div>
                     <div className="flex justify-between">
                         <h1 className="px-3 py-2 text-center text-xl font-semibold">
-                            Contacts
+                            Steps
                         </h1>
-                        {/* <Link
-                            to="/admin/home/create-timeline"
-                            className="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium shadow-sm hover:bg-hover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 capitalize m-2"
-                        onClick={onEventCreate}
-                        >
-                            Create
-                        </Link> */}
+                    </div>
+                    <table
+                        className="table-auto border my-5 border-primary mx-2 px-2"
+                        style={{
+                            width: "-webkit-fill-available",
+                        }}
+                    >
+                        <thead className="border-b">
+                            <tr className="bg-primary grid grid-cols-12">
+                                <th className="px-4 py-2 col-span-3 border-r">
+                                    Title
+                                </th>
+                                <th className="px-4 py-2 col-span-3 border-r">
+                                    Name
+                                </th>
+                                <th className="px-4 py-2 col-span-4 border-r">
+                                    Description
+                                </th>
+                                <th className="px-4 py-2 col-span-2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {steps && steps.length > 0 ? (
+                                steps.map((item, index) => (
+                                    <tr key={index} className="even:bg-[#84BFB5] grid grid-cols-12">
+                                        <td className="px-4 py-2 col-span-3 border-r border-primary flex items-center justify-center">
+                                            <p>{item.title}</p>
+                                        </td>
+                                        <td className="px-4 py-2 col-span-3 border-r border-primary flex items-center justify-center max-h-44 overflow-y-auto">
+                                            {item.name}
+                                        </td>
+                                        <td className="px-4 py-2 col-span-4 border-r border-primary flex items-center justify-center max-h-44 overflow-y-auto">
+                                            {item.desc}
+                                        </td>
+                                        <td className="px-4 py-2 col-span-2 flex justify-center items-center gap-3">
+                                            <Link to={`/admin/dashboard/${item._id}`}
+                                                // onClick={() => contactHandler(item)}
+                                                className="px-4 py-1 rounded-full border border-primary hover:bg-primary text-primary font-medium cursor-pointer h-max"
+                                            ><AiFillEdit /></Link>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr className="odd:bg-gray-100 grid grid-cols-3">
+                                    <td className="px-4 py-2 col-span-3 border-r border-primary text-center">
+                                        No data available
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    <div className="flex justify-between">
+                        <p className="px-3 py-2 text-center text-xl font-semibold">
+                            Contacts
+                        </p>
                     </div>
                     <table
                         className="table-auto border my-5 border-primary mx-2 px-2"
@@ -83,9 +132,13 @@ const Dashboard = () => {
                                             {item.phone}
                                         </td>
                                         <td className="px-4 py-2 col-span-2 flex justify-center items-center gap-3">
+                                            <button
+                                                onClick={() => contactHandler(item)}
+                                                className="px-4 py-1 rounded-full border border-primary hover:bg-primary text-primary font-medium cursor-pointer h-max"
+                                            ><IoMdExpand /></button>
                                             <a
                                                 className="px-4 py-1 rounded-full border border-primary hover:bg-primary text-primary font-medium cursor-pointer h-max"
-                                                href={`mailto:${item.email}`}>Mail</a>
+                                                href={`mailto:${item.email}`}><TbMailForward /></a>
                                         </td>
                                     </tr>
                                 ))
@@ -100,6 +153,7 @@ const Dashboard = () => {
                     </table>
                 </div>
             </div>
+            {currentContact && <Expand setCurrentContact={setCurrentContact} user={currentContact} />}
         </div>
     )
 }

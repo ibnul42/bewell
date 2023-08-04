@@ -8,6 +8,8 @@ const initialState = {
     isError: false,
     isSuccess: false,
     isContactAdded: false,
+    isStepEdited: false,
+    step: null,
     steps: null,
     contacts: null,
     msg: ''
@@ -17,6 +19,24 @@ const initialState = {
 export const getSteps = createAsyncThunk('admin/steps', async (_, thunkAPI) => {
     try {
         return await adminService.getSteps()
+    } catch (error) {
+        const message = error.response && error.response.data && error.response.data.message || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const getSingleStep = createAsyncThunk('admin/step', async (id, thunkAPI) => {
+    try {
+        return await adminService.getStep(id)
+    } catch (error) {
+        const message = error.response && error.response.data && error.response.data.message || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const updateStep = createAsyncThunk('admin/step-update', async (data, thunkAPI) => {
+    try {
+        return await adminService.updateStep(data)
     } catch (error) {
         const message = error.response && error.response.data && error.response.data.message || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -50,6 +70,7 @@ export const adminSlice = createSlice({
             state.isError = false
             state.isSuccess = false
             state.isContactAdded = false
+            state.isStepEdited = false
             state.msg = ''
         }
     },
@@ -62,12 +83,42 @@ export const adminSlice = createSlice({
                 state.isLoading = false
                 state.isSuccess = true
                 state.steps = action.payload
+                state.step = null
             })
             .addCase(getSteps.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.msg = action.payload
                 state.steps = null
+            })
+            .addCase(getSingleStep.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getSingleStep.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.step = action.payload
+                state.steps = null
+            })
+            .addCase(getSingleStep.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.msg = action.payload
+                state.step = null
+            })
+            .addCase(updateStep.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(updateStep.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.isStepEdited = true
+                state.msg = action.payload.message
+            })
+            .addCase(updateStep.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.msg = action.payload
             })
             .addCase(addContact.pending, (state) => {
                 state.isLoading = true

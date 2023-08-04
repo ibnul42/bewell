@@ -1,11 +1,15 @@
-import { useSelector } from 'react-redux'
-import { Navigate, Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
 
-const ProtectedRoute = () => {
-    let isAuthenticated = false
-    isAuthenticated = useSelector((state) => state.auth.user)
+const ProtectedRoute = ({children}) => {
+  const { user, isLoading } = useSelector((state) => state.auth);
 
-    if (isAuthenticated !== false) return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
-}
+  if (isLoading) return <div className="h-full w-full">
+    <div className="animate-spin"></div>
+  </div>
 
-export default ProtectedRoute
+  return user ? children : <Navigate to="/login" />;
+};
+
+export default ProtectedRoute;

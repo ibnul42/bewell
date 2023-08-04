@@ -1,4 +1,5 @@
 import axios from "axios"
+import { json } from "react-router-dom"
 
 const API_URL = `${import.meta.env.VITE_DOMAIN}/api`
 
@@ -10,6 +11,42 @@ const getSteps = async () => {
     //     localStorage.setItem('user', JSON.stringify(response.data))
     // }
     return response.data
+}
+
+const getStep = async (id) => {
+    const token = JSON.parse(localStorage.getItem('user')).token
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    console.log(token)
+    try {
+        const response = await axios.get(API_URL + `/admin/step/${id}`, config)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        if (error.response.status === 400) {
+            throw new Error(error.response.data.msg)
+        } else {
+            throw new Error("An error occurred!")
+        }
+    }
+}
+
+const updateStep = async (data) => {
+    const token = JSON.parse(localStorage.getItem('user')).token
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    try {
+        const response = await axios.put(API_URL + `/admin/step/${data.id}`, data, config)
+        return response.data
+    } catch (error) {
+        if (error.response.status === 404) {
+            throw new Error(error.response.data.message)
+        } else {
+            throw new Error("An error occurred!")
+        }
+    }
 }
 
 const addContact = async (data) => {
@@ -27,12 +64,15 @@ const addContact = async (data) => {
 }
 
 const getContacts = async () => {
+    const token = JSON.parse(localStorage.getItem('user')).token
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
     try {
-        const response = await axios.get(API_URL + '/admin/contacts')
+        const response = await axios.get(API_URL + '/admin/contacts', config)
         return response.data
     } catch (error) {
         if (error.response.status === 400) {
-            console.log(error.response)
             throw new Error(error.response.data.msg)
         } else {
             throw new Error("An error occurred!")
@@ -42,8 +82,10 @@ const getContacts = async () => {
 
 const authService = {
     getSteps,
+    getStep,
     addContact,
-    getContacts
+    getContacts,
+    updateStep
 }
 
 export default authService
