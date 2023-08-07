@@ -51,7 +51,6 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(inputValue)
     // setLogoutUser(false)
     dispatch(login(inputValue))
   }

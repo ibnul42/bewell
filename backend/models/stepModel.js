@@ -22,7 +22,7 @@ const stepSchema = mongoose.Schema({
         required: [true, 'Please enter a desc']
     },
 }, {
-    timestams: true
+    timestamps: true
 })
 
 module.exports = mongoose.model('Step', stepSchema)

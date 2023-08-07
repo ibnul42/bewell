@@ -18,10 +18,8 @@ const getStep = async (id) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     }
-    console.log(token)
     try {
         const response = await axios.get(API_URL + `/admin/step/${id}`, config)
-        console.log(response.data)
         return response.data
     } catch (error) {
         if (error.response.status === 400) {
@@ -55,7 +53,6 @@ const addContact = async (data) => {
         return response.data
     } catch (error) {
         if (error.response.status === 400) {
-            console.log(error.response)
             throw new Error(error.response.data.msg)
         } else {
             throw new Error("An error occurred!")
