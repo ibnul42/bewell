@@ -6,7 +6,7 @@ import Accordion from '../../components/accordion'
 import DateSelector from '../../components/DateSelector'
 import { NavHashLink } from 'react-router-hash-link'
 import { toast } from 'react-toastify'
-import { addContact, getSteps } from '../../features/admin/adminSlice'
+import { addContact, getGeneralFaq, getSteps, getWeightLossFaq } from '../../features/admin/adminSlice'
 
 const services = [
   {
@@ -46,67 +46,67 @@ const services = [
   }
 ]
 
-const weightlossfaq = [
-  {
-    serial: '01',
-    title: 'How do I get my medication?',
-    desc: "We work with a third-party compounding pharmacy to process your prescription. Your medication will be mailed directly from the pharmacy to your address on file, unless otherwise specified/discussed."
-  },
-  {
-    serial: '02',
-    title: 'What if I am not approved for a medication?',
-    desc: "Like a traditional clinic, payment is for the provider’s service and the providers time spent with you in a telehealth appointment. If you are not approved, your provider is often able to offer alternative therapies that you may be medically qualified for. "
-  },
-  {
-    serial: '03',
-    title: 'Are there any hidden fees?',
-    desc: "No, the prices of all our plans are displayed on our website. All you pay per month is the flat-fee (as shown)."
-  },
-  {
-    serial: '04',
-    title: 'What if I need to cancel?',
-    desc: "You can cancel anytime! It's that easy. Bee Well offers a month-to-month subscription for weight loss medications. We do not require you to sign up for any specific length of time."
-  },
-  {
-    serial: '05',
-    title: 'Do I have to pay for medication separately?',
-    desc: "Program costs displayed on our website include the medication cost for the GLP-1 program. For your convenience, you are only billed once per month for the total cost of the program. If medication is sent to the pharmacy of your choice, the cost of medication will be discussed in the appointment."
-  }
-]
+// const weightlossfaq = [
+//   {
+//     serial: '01',
+//     title: 'How do I get my medication?',
+//     desc: "We work with a third-party compounding pharmacy to process your prescription. Your medication will be mailed directly from the pharmacy to your address on file, unless otherwise specified/discussed."
+//   },
+//   {
+//     serial: '02',
+//     title: 'What if I am not approved for a medication?',
+//     desc: "Like a traditional clinic, payment is for the provider’s service and the providers time spent with you in a telehealth appointment. If you are not approved, your provider is often able to offer alternative therapies that you may be medically qualified for. "
+//   },
+//   {
+//     serial: '03',
+//     title: 'Are there any hidden fees?',
+//     desc: "No, the prices of all our plans are displayed on our website. All you pay per month is the flat-fee (as shown)."
+//   },
+//   {
+//     serial: '04',
+//     title: 'What if I need to cancel?',
+//     desc: "You can cancel anytime! It's that easy. Bee Well offers a month-to-month subscription for weight loss medications. We do not require you to sign up for any specific length of time."
+//   },
+//   {
+//     serial: '05',
+//     title: 'Do I have to pay for medication separately?',
+//     desc: "Program costs displayed on our website include the medication cost for the GLP-1 program. For your convenience, you are only billed once per month for the total cost of the program. If medication is sent to the pharmacy of your choice, the cost of medication will be discussed in the appointment."
+//   }
+// ]
 
 const generalfaq = [
   {
     serial: `01`,
     title: `How do I pay my bill?`,
-    desc: `Bill pay will be directly through our electronic medical record platform via the`,
+    description: `Bill pay will be directly through our electronic medical record platform via the`,
     link: `https://app2.rxnt.com/patientbillpay/#/`,
     linktitle: `patient portal`
   },
   {
     serial: `02`,
     title: `How will I contact my healthcare provider?`,
-    desc: `After completing the medical intake forms - you will be prompted to set up a patient portal through our electronic medical record platform. Here you will have access to direct messaging and scheduling with your provider. `
+    description: `After completing the medical intake forms - you will be prompted to set up a patient portal through our electronic medical record platform. Here you will have access to direct messaging and scheduling with your provider. `
   },
   {
     serial: `03`,
     title: `Does Bee Well Health accept insurance?`,
-    desc: `We do not accept any public or private health insurance plans, cost-sharing, or any other similar methods of payments. Clients are solely responsible for the cost of the service.
+    description: `We do not accept any public or private health insurance plans, cost-sharing, or any other similar methods of payments. Clients are solely responsible for the cost of the service.
     `
   },
   {
     serial: `04`,
     title: `Who can use Bee Well Health?`,
-    desc: `You must be 18 years or older. You must be a resident or physically located in Florida. You must have a demonstrated need for treatment.`
+    description: `You must be 18 years or older. You must be a resident or physically located in Florida. You must have a demonstrated need for treatment.`
   },
   {
     serial: `05`,
     title: `Do medication, labs, and imaging orders count towards my deductible?`,
-    desc: `All medications, labs, and imaging orders that your insurance is billed for will count towards your insurance deductible.`
+    description: `All medications, labs, and imaging orders that your insurance is billed for will count towards your insurance deductible.`
   },
   {
     serial: `06`,
     title: `Can Bee Well Health order referrals?`,
-    desc: `If medically necessary, Bee Well Health can order referrals for physical therapy, occupation therapy, social services, and specialists. Schedule an appointment to discuss with your provider!`
+    description: `If medically necessary, Bee Well Health can order referrals for physical therapy, occupation therapy, social services, and specialists. Schedule an appointment to discuss with your provider!`
   }
 ]
 
@@ -130,7 +130,7 @@ const Home = () => {
   const { firstName, lastName, email, phone, appointtime, message } = inputValue
 
   const dispatch = useDispatch()
-  const { steps, msg, isError, isContactAdded } = useSelector((state) => state.admin)
+  const { steps, msg, isError, isContactAdded, weightLossFaqs, generalFaqs } = useSelector((state) => state.admin)
 
   useEffect(() => {
     if (isContactAdded) {
@@ -151,7 +151,9 @@ const Home = () => {
     }
     else if (isError) toast.error(msg)
     if (!steps) dispatch(getSteps())
-  }, [steps, dispatch, msg, isContactAdded, isError])
+    if (!weightLossFaqs) dispatch(getWeightLossFaq())
+    if (!generalFaqs) dispatch(getGeneralFaq())
+  }, [steps, dispatch, msg, isContactAdded, isError, weightLossFaqs, generalFaqs])
 
   const onChange = (e) => {
     const { name, value } = e.target
@@ -313,7 +315,7 @@ const Home = () => {
           </div>
           <div className="bg-[url('/assets/weightloss2.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className='text-xl text-white font-bold'>Medical Weight Loss</p>
-            <div className="w-full text-white text-center">Phentermine, Contrave, Plenty</div>
+            <div className="w-full text-white text-center">Phentermine, Contrave, Plenity</div>
             <p className='text-3xl text-white font-bold'>$80/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & electronically sent prescription {` `}
@@ -328,7 +330,7 @@ const Home = () => {
           <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
         </div>
         <div className="space-y-3">
-          <Accordion slColor="#6CB4A8" items={weightlossfaq} />
+          <Accordion slColor="#6CB4A8" items={weightLossFaqs} />
         </div>
         <div className="flex justify-center">
           <Link to="https://app2.rxnt.com/phr/#/" target="_blank" className='bg-[#FFDE17] px-5 md:px-8 lg:px-10 mx-3 py-3 rounded font-bold'>Patient Portal</Link>
@@ -383,7 +385,7 @@ const Home = () => {
           <p className='text-3xl md:stext-5xl font-medium'>General FAQ</p>
           <div className="bg-[#FFDE17] w-24 h-1 rounded"></div>
         </div>
-        <Accordion slColor="#FFDE17" items={generalfaq} />
+        <Accordion slColor="#FFDE17" items={generalFaqs} />
       </section>
       {/* ------------------  general faq section ------------------ */}
     </div>

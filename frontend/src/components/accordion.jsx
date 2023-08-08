@@ -19,11 +19,11 @@ const Accordion = ({ items, slColor }) => {
                     <div onClick={() => expandHandler(index)} className={`px-6 py-2 flex gap-1 justify-between cursor-pointer`}>
                         <p className='w-[95%] font-bold text-lg md:text-xl'><span className={`text-xl md:text-2xl`} style={{
                             color: slColor
-                        }}>{item.serial + '. '}</span>{item.title}</p>
+                        }}>{index + 1 + '. '}</span>{item.title}</p>
                         <p className='w-[2%] text-2xl text-yellow-700'>{showDetail !== index ? '+' : '-'}</p>
                     </div>
-                    <p className={`${showDetail === index ? 'visible' : 'hidden'} text-sm px-3 md:px-6 pb-4`}>{item.desc} {item.link && <Link to={item.link} target='_blank' className='underline text-yellow-600 hover:text-yellow-700'>{item.linktitle}</Link>}</p>
-                    
+                    <p className={`${showDetail === index ? 'visible' : 'hidden'} text-sm px-3 md:px-6 pb-4`}>{item.description} {item.link && item.link.type === true && <Link to={item?.link?.link} target='_blank' className='underline text-yellow-600 hover:text-yellow-700'>{item?.link?.title}</Link>}</p>
+
                 </div>
             ))}
         </div>

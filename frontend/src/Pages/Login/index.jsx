@@ -36,10 +36,9 @@ const Login = () => {
       navigate('/admin/dashboard')
     }
     else if (user) {
-      toast.success("Login successfull!")
       navigate("/admin/dashboard")
     }
-  }, [user, isError, message, dispatch, isLoggedIn, isSuccess, navigate])
+  }, [user, isError, message, dispatch, isLoggedIn, isSuccess, navigate, userData])
 
   const onChange = (e) => {
     const { name, value } = e.target

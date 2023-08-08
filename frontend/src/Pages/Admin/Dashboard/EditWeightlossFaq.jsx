@@ -1,70 +1,67 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSingleStep, reset, updateStep } from '../../../features/admin/adminSlice'
+import { createWeightLossFaq, editWeightLossFaq, reset, singleWeightLossFaq } from '../../../features/admin/adminSlice'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-const EditService = () => {
+const EditWeightlossFaq = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const param = useParams()
-    const { step: id } = param
+    const { id } = useParams()
+    const [initialState, setInitialState] = useState(true)
 
-    const { step, isStepEdited, isSuccess, isError, msg } = useSelector((state) => state.admin)
-
-    const [initialized, setInitialized] = useState(true)
+    const { isFaqCreated, msg, isError, isSingleFaq, isFaqEdited, weightLossFaq } = useSelector((state) => state.admin)
 
     const [inputValue, setInputValue] = useState({
-        name: '',
-        desc: ''
+        title: '',
+        description: ''
     })
 
-    const { name, desc } = inputValue
+    const { title, description } = inputValue
 
     useEffect(() => {
-        if (initialized) {
-            dispatch(getSingleStep(id))
-            setInitialized(false)
-        }
-        if (isStepEdited) {
-            toast.success(msg)
-            dispatch(reset())
-            navigate('/admin/dashboard')
+        if (initialState) {
+            dispatch(singleWeightLossFaq(id))
+            setInitialState(false)
         } else if (isError) {
             toast.error(msg)
             dispatch(reset())
-        } else if (isSuccess && step) {
+        } else if (isSingleFaq) {
             setInputValue({
-                name: step.name,
-                desc: step.desc
+                title: weightLossFaq.title,
+                description: weightLossFaq.description
             })
+        } else if (isFaqEdited) {
+            toast.success(msg)
+            dispatch(reset())
+            navigate('/admin/dashboard')
         }
-    }, [dispatch, step, id, isError, isStepEdited, isSuccess, msg, navigate, initialized])
+    }, [isError, dispatch, isFaqCreated, msg, navigate, initialState, id, isSingleFaq, weightLossFaq, isFaqEdited])
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(updateStep({ ...inputValue, id: step._id }))
+        dispatch(editWeightLossFaq({ data: inputValue, id }))
     }
     return (
         <div className='flex gap-2 min-h-[60vh] justify-center items-center'>
             <form onSubmit={submitHandler}>
                 <div className="space-y-5 w-96">
-                    <h2 className="text-2xl font-semibold leading-7 text-gray-900 text-center">{step?.title}</h2>
+                    <h2 className="text-2xl font-semibold leading-7 text-gray-900 text-center">Edit Weight Loss FAQ</h2>
 
                     <div className="">
                         <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                            Name
+                            Title
                         </label>
                         <div className="mt-2">
                             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                 <input
                                     type="text"
-                                    name="name"
-                                    id="name"
-                                    value={name}
-                                    onChange={(e) => setInputValue((prev) => ({ ...prev, name: e.target.value }))}
+                                    name="title"
+                                    id="title"
+                                    value={title}
+                                    onChange={(e) => setInputValue((prev) => ({ ...prev, title: e.target.value }))}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    placeholder="janesmith"
+                                    placeholder="FAQ Title"
                                 />
                             </div>
                         </div>
@@ -76,10 +73,10 @@ const EditService = () => {
                         </label>
                         <div className="mt-2">
                             <textarea
-                                id="desc"
-                                name="desc"
-                                value={desc}
-                                onChange={(e) => setInputValue((prev) => ({ ...prev, desc: e.target.value }))}
+                                id="description"
+                                name="description"
+                                value={description}
+                                onChange={(e) => setInputValue((prev) => ({ ...prev, description: e.target.value }))}
                                 rows={3}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
@@ -88,7 +85,7 @@ const EditService = () => {
                 </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                    <Link state={{redirect: 'steps'}} to="/admin/dashboard" className="text-sm font-semibold leading-6 text-gray-900">
+                    <Link state={{redirect: 'weightLoss'}} to="/admin/dashboard" className="text-sm font-semibold leading-6 text-gray-900">
                         Cancel
                     </Link>
                     <button
@@ -103,4 +100,4 @@ const EditService = () => {
     )
 }
 
-export default EditService
+export default EditWeightlossFaq

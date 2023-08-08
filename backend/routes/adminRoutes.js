@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { registerUser, LoginUser, getMe, updateProfile } = require('../controllers/userController')
 const { protect } = require('../middleware/authMiddleware')
-const { getAllSteps, createStep, updateStep, getAllContacts, createContact, getSingleStep, getAllWeightLossFAQ, singleWeightLossFAQ, createWeightLossFAQ, editWeightLossFAQ, deleteWeightLossFAQ } = require('../controllers/adminController')
+const { getAllSteps, createStep, updateStep, getAllContacts, createContact, getSingleStep, getAllWeightLossFAQ, singleWeightLossFAQ, createWeightLossFAQ, editWeightLossFAQ, deleteWeightLossFAQ, createGeneralFAQ, getAllGeneralFAQ, singleGeneralFAQ, editGeneralFAQ, deleteGeneralFAQ } = require('../controllers/adminController')
 
 router.get('/all-steps', getAllSteps)
 router.post('/create-step', createStep)
@@ -15,6 +15,11 @@ router.get('/weightlossfaq/:id', singleWeightLossFAQ)
 router.post('/weightlossfaq', protect, createWeightLossFAQ)
 router.put('/weightlossfaq/:id', protect, editWeightLossFAQ)
 router.delete('/weightlossfaq/:id', protect, deleteWeightLossFAQ)
+router.post('/generalfaq', protect, createGeneralFAQ)
+router.get('/generalfaq', getAllGeneralFAQ)
+router.get('/generalfaq/:id', singleGeneralFAQ)
+router.put('/generalfaq/:id', protect, editGeneralFAQ)
+router.delete('/generalfaq/:id', protect, deleteGeneralFAQ)
 
 
 module.exports = router

@@ -10,6 +10,10 @@ import { ToastContainer } from 'react-toastify'
 import Dashboard from '../Pages/Admin/Dashboard/indes'
 import ProtectedRoute from '../utils/ProtectedRoute'
 import EditService from '../Pages/Admin/Dashboard/EditService'
+import CreateWeightlossFaq from '../Pages/Admin/Dashboard/CreateWeightlossFaq'
+import EditWeightlossFaq from '../Pages/Admin/Dashboard/EditWeightlossFaq'
+import EditGeneralFaq from '../Pages/Admin/Dashboard/EditGeneralFaq'
+import CreateGeneralFaq from '../Pages/Admin/Dashboard/CreateGeneralFaq'
 const Layout = () => {
   const [open, setOpen] = useState(false)
 
@@ -27,6 +31,10 @@ const Layout = () => {
           {/* <ProtectedRoute path="/admin/dashboard" element={<Dashboard />} /> */}
           <Route path='/admin/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path='/admin/dashboard/:step' element={<ProtectedRoute><EditService /></ProtectedRoute>} />
+          <Route path='/admin/dashboard/loss-faq/create' element={<ProtectedRoute><CreateWeightlossFaq /></ProtectedRoute>} />
+          <Route path='/admin/dashboard/loss-faq/:id' element={<ProtectedRoute><EditWeightlossFaq /></ProtectedRoute>} />
+          <Route path='/admin/dashboard/general-faq/create' element={<ProtectedRoute><CreateGeneralFaq /></ProtectedRoute>} />
+          <Route path='/admin/dashboard/general-faq/:id' element={<ProtectedRoute><EditGeneralFaq /></ProtectedRoute>} />
         </Routes>
       </div>
       <div className="">

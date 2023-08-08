@@ -6,10 +6,10 @@ const API_URL = `${import.meta.env.VITE_DOMAIN}/api/users/`
 const login = async (userData) => {
     try {
         const response = await axios.post(API_URL + 'login', userData)
-    
-        if(response.data) {
+
+        if (response.data) {
             localStorage.setItem('user', JSON.stringify(response.data))
-        } 
+        }
         return response.data
 
     } catch (error) {
@@ -34,9 +34,9 @@ const update = async (userData) => {
         headers: { Authorization: `Bearer ${token}` }
     };
     const response = await axios.post(API_URL + 'me/update', userData, config)
-    if(response.data) {
+    if (response.data) {
         localStorage.setItem('user', JSON.stringify(response.data))
-    } 
+    }
     return response.data
 }
 
@@ -47,13 +47,10 @@ const getUser = async () => {
     };
     try {
         const response = await axios.get(API_URL + 'me', config)
-    
-        // if(response.data) {
-        //     localStorage.setItem('user', JSON.stringify(response.data))
-        // } 
         return response.data
 
     } catch (error) {
+        localStorage.removeItem('user')
         if (error.response.status === 400) {
             // throw new Error(error.response.data.msg)
         } else {

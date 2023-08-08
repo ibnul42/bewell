@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Step = require('../models/stepModel')
 const Contact = require('../models/contactModel')
 const WeightLoss = require('../models/weightLossFAQ')
+const GeneralFAQ = require('../models/GeneralFAQ')
 
 const getAllSteps = asyncHandler(async (req, res) => {
     const steps = await Step.find()
@@ -200,13 +201,103 @@ const deleteWeightLossFAQ = asyncHandler(async (req, res) => {
         res.status(200).json({ message: 'Weight loss faq deleted successfully' })
     }
 
-    await WeightLoss.findByIdAndDelete(id)
-
-    // if (response) {
+    try {
+        await WeightLoss.findByIdAndDelete(id)
         res.status(200).json({ message: 'Weight loss faq deleted successfully' })
-    // }
+    } catch (error) {
+        res.status(404).json({ msg: 'Error occured while editing FAQ' })
+    }
 
-    // res.status(404).json({ msg: 'Error occured while editing FAQ' })
+})
+
+const createGeneralFAQ = asyncHandler(async (req, res) => {
+    const { title, description, link } = req.body
+
+    if (!title) {
+        res.status(404).json({ msg: 'Please enter title' })
+    }
+
+    if (!description) {
+        res.status(404).json({ msg: 'Please enter description' })
+    }
+
+    const response = await GeneralFAQ.create({ title, description, link })
+
+    if (response) {
+        res.status(200).json({ message: 'General faq created successfully' })
+    }
+
+    res.status(404).json({ msg: 'Error occured while create FAQ' })
+})
+
+const getAllGeneralFAQ = asyncHandler(async (req, res) => {
+    const response = await GeneralFAQ.find()
+    res.status(200).json(response)
+})
+
+const singleGeneralFAQ = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    if (id.length !== 24) {
+        res.status(404).json({ message: 'Unable to find the FAQ' })
+    }
+    const response = await GeneralFAQ.findById(id)
+    if (!response) {
+        res.status(404).json({ message: 'Unable to find the FAQ' })
+    }
+    res.status(200).json(response)
+})
+
+const editGeneralFAQ = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const { title, description, link } = req.body
+
+    if (id.length !== 24) {
+        res.status(404).json({ message: 'Unable to find the FAQ' })
+    }
+
+    if (!title) {
+        res.status(404).json({ msg: 'Please enter title' })
+    }
+
+    if (!description) {
+        res.status(404).json({ msg: 'Please enter description' })
+    }
+
+    const faqExist = await GeneralFAQ.findById(id)
+
+    if (!faqExist) {
+        res.status(404).json({ message: 'Unable to find the FAQ' })
+    }
+
+    const response = await GeneralFAQ.findByIdAndUpdate(id, { title, description, link })
+
+    if (response) {
+        res.status(200).json({ message: 'General FAQ edited successfully' })
+    }
+
+    res.status(404).json({ msg: 'Error occured while editing FAQ' })
+})
+
+const deleteGeneralFAQ = asyncHandler(async (req, res) => {
+    const { id } = req.params
+
+    if (id.length !== 24) {
+        res.status(200).json({ message: 'General faq deleted successfully' })
+    }
+
+    const faqExist = await GeneralFAQ.findById(id)
+
+    if (!faqExist) {
+        res.status(200).json({ message: 'General faq deleted successfully' })
+    }
+
+    try {
+        await GeneralFAQ.findByIdAndDelete(id)
+        res.status(200).json({ message: 'Weight loss faq deleted successfully' })
+    } catch (error) {
+        res.status(404).json({ msg: 'Error occured while editing FAQ' })
+    }
+
 })
 
 
@@ -222,5 +313,10 @@ module.exports = {
     singleWeightLossFAQ,
     createWeightLossFAQ,
     editWeightLossFAQ,
-    deleteWeightLossFAQ
+    deleteWeightLossFAQ,
+    createGeneralFAQ,
+    getAllGeneralFAQ,
+    singleGeneralFAQ,
+    editGeneralFAQ,
+    deleteGeneralFAQ
 }
