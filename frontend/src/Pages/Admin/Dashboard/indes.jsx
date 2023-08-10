@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteGeneralFaq, deleteWeightLossFaq, getContacts, getGeneralFaq, getSteps, getWeightLossFaq } from '../../../features/admin/adminSlice'
+import { deleteGeneralFaq, deleteWeightLossFaq, getContacts, getGeneralFaq, getServices, getSteps, getWeightLossFaq } from '../../../features/admin/adminSlice'
 import { Link, useLocation } from 'react-router-dom'
 import { logout, reset } from '../../../features/auth/authSlice'
 import { toast } from 'react-toastify'
@@ -10,7 +10,7 @@ import { AiFillEdit } from 'react-icons/ai'
 import { MdDelete } from 'react-icons/md'
 import Expand from '../../../components/Expand'
 
-const allItems = ['steps', 'contacts', 'weightLoss', 'generalFaq']
+const allItems = ['steps', 'contacts', 'weightLoss', 'generalFaq', 'service']
 
 const Dashboard = () => {
     const location = useLocation()
@@ -20,7 +20,7 @@ const Dashboard = () => {
 
     const [currentContact, setCurrentContact] = useState(null)
 
-    const { contacts, steps, weightLossFaqs, isFaqDeleted, msg, generalFaqs, isGeneralFaqDeleted } = useSelector((state) => state.admin)
+    const { contacts, steps, weightLossFaqs, isFaqDeleted, msg, generalFaqs, isGeneralFaqDeleted, services } = useSelector((state) => state.admin)
 
 
     useEffect(() => {
@@ -33,6 +33,8 @@ const Dashboard = () => {
                 dispatch(getWeightLossFaq())
             } else if (selectedItem === 'generalFaq') {
                 dispatch(getGeneralFaq())
+            } else if (selectedItem === 'service') {
+                dispatch(getServices())
             }
         }
         if (isFaqDeleted) {
@@ -293,6 +295,62 @@ const Dashboard = () => {
                                                 </td>
                                                 <td className="px-4 py-2 col-span-2 flex justify-center items-center gap-3">
                                                     <Link to={`/admin/dashboard/general-faq/${item._id}`}
+                                                        className="px-4 py-1 rounded-full border border-primary hover:bg-primary text-primary font-medium cursor-pointer h-max"
+                                                    ><AiFillEdit /></Link>
+                                                    <button
+                                                        onClick={() => deleteFaqGeneral(item)}
+                                                        className="px-4 py-1 rounded-full border border-primary hover:bg-primary text-primary font-medium cursor-pointer h-max"
+                                                    ><MdDelete /></button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr className="odd:bg-gray-100 grid grid-cols-3">
+                                            <td className="px-4 py-2 col-span-3 border-r border-primary text-center">
+                                                No data available
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>}
+                    {selectedItem === 'service' &&
+                        <div className="">
+                            <div className="flex justify-between items-center pr-3">
+                                <p className="px-3 py-2 text-center text-xl font-semibold capitalize">
+                                    Services
+                                </p>
+                                <Link to="/admin/dashboard/general-faq/create" className='py-2 px-6 rounded-full border hover:bg-slate-100'>Create</Link>
+                            </div>
+                            <table
+                                className="table-auto border my-5 border-primary mx-2 px-2"
+                                style={{
+                                    width: "-webkit-fill-available",
+                                }}
+                            >
+                                <thead className="border-b">
+                                    <tr className="bg-primary grid grid-cols-12">
+                                        <th className="px-4 py-2 col-span-3 border-r">
+                                            Title
+                                        </th>
+                                        <th className="px-4 py-2 col-span-7 border-r">
+                                            Description
+                                        </th>
+                                        <th className="px-4 py-2 col-span-2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {services && services.length > 0 ? (
+                                        services.map((item, index) => (
+                                            <tr key={index} className="even:bg-[#84BFB5] grid grid-cols-12">
+                                                <td className="px-4 py-2 col-span-3 border-r border-primary flex items-center justify-center">
+                                                    <p>{item.title}</p>
+                                                </td>
+                                                <td className="px-4 py-2 col-span-7 border-r border-primary flex items-center justify-center max-h-44 overflow-y-auto">
+                                                    {item.description}
+                                                </td>
+                                                <td className="px-4 py-2 col-span-2 flex justify-center items-center gap-3">
+                                                    <Link to={`/admin/dashboard/service/${item._id}`}
                                                         className="px-4 py-1 rounded-full border border-primary hover:bg-primary text-primary font-medium cursor-pointer h-max"
                                                     ><AiFillEdit /></Link>
                                                     <button

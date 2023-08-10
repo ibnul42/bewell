@@ -18,6 +18,9 @@ const initialState = {
     isGeneralFaqCreated: false,
     isGeneralFaqEdited: false,
     isGeneralFaqDeleted: false,
+    isService: false,
+    isSingleService: false,
+    isServiceEdited: false,
     step: null,
     steps: null,
     contacts: null,
@@ -25,6 +28,8 @@ const initialState = {
     weightLossFaqs: null,
     generalFaq: null,
     generalFaqs: null,
+    service: null,
+    services: null,
     msg: ''
 }
 
@@ -164,6 +169,32 @@ export const createGeneralsFaq = createAsyncThunk('admin/general-faq-get-create'
     }
 })
 
+export const getServices = createAsyncThunk('admin/service-get', async (_, thunkAPI) => {
+    try {
+        return await adminService.getServices()
+    } catch (error) {
+        const message = error.response && error.response.data && error.response.data.message || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const singleService = createAsyncThunk('admin/service-single', async (id, thunkAPI) => {
+    try {
+        return await adminService.singleService(id)
+    } catch (error) {
+        const message = error.response && error.response.data && error.response.data.message || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const editService = createAsyncThunk('admin/service-edit', async (data, thunkAPI) => {
+    try {
+        return await adminService.editService(data)
+    } catch (error) {
+        const message = error.response && error.response.data && error.response.data.message || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
 
 
 export const adminSlice = createSlice({
@@ -185,6 +216,9 @@ export const adminSlice = createSlice({
             state.isGeneralFaqCreated = false
             state.isGeneralFaqEdited = false
             state.isGeneralFaqDeleted = false
+            state.isService = false
+            state.isSingleService = false
+            state.isServiceEdited = false
             state.msg = ''
         }
     },
@@ -403,6 +437,50 @@ export const adminSlice = createSlice({
                 state.msg = action.payload.message
             })
             .addCase(createGeneralsFaq.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.msg = action.payload
+            })
+            .addCase(getServices.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getServices.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.services = action.payload
+            })
+            .addCase(getServices.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.services = []
+                state.msg = action.payload
+            })
+            .addCase(singleService.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(singleService.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSingleService = true
+                state.isSuccess = true
+                state.service = action.payload
+            })
+            .addCase(singleService.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.service = {}
+                state.msg = action.payload
+            })
+            .addCase(editService.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(editService.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.isServiceEdited = true
+                state.msg = action.payload.message
+            })
+            .addCase(editService.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.isSuccess = false

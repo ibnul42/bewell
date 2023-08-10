@@ -239,6 +239,53 @@ const createGeneralFaq = async (data) => {
     }
 }
 
+const getServices = async () => {
+    try {
+        const response = await axios.get(API_URL + '/admin/service')
+        return response.data
+    } catch (error) {
+        if (error.response.status === 404) {
+            throw new Error(error.response.data.msg)
+        } else {
+            throw new Error("An error occurred!")
+        }
+    }
+}
+
+const singleService = async (id) => {
+    const token = JSON.parse(localStorage.getItem('user')).token
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    try {
+        const response = await axios.get(`${API_URL}/admin/service/${id}`, config)
+        return response.data
+    } catch (error) {
+        if (error.response.status === 404) {
+            throw new Error(error.response.data.msg)
+        } else {
+            throw new Error("An error occurred!")
+        }
+    }
+}
+
+const editService = async ({ data, id }) => {
+    const token = JSON.parse(localStorage.getItem('user')).token
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    try {
+        const response = await axios.put(`${API_URL}/admin/service/${id}`, data, config)
+        return response.data
+    } catch (error) {
+        if (error.response.status === 404) {
+            throw new Error(error.response.data.msg)
+        } else {
+            throw new Error("An error occurred!")
+        }
+    }
+}
+
 
 
 const authService = {
@@ -256,7 +303,10 @@ const authService = {
     singleGeneralFaq,
     editGeneralFaq,
     deleteGeneralFaq,
-    createGeneralFaq
+    createGeneralFaq,
+    getServices,
+    singleService,
+    editService
 }
 
 export default authService

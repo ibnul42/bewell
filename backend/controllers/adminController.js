@@ -3,6 +3,7 @@ const Step = require('../models/stepModel')
 const Contact = require('../models/contactModel')
 const WeightLoss = require('../models/weightLossFAQ')
 const GeneralFAQ = require('../models/GeneralFAQ')
+const Service = require('../models/ServiceModal')
 
 const getAllSteps = asyncHandler(async (req, res) => {
     const steps = await Step.find()
@@ -295,7 +296,97 @@ const deleteGeneralFAQ = asyncHandler(async (req, res) => {
         await GeneralFAQ.findByIdAndDelete(id)
         res.status(200).json({ message: 'Weight loss faq deleted successfully' })
     } catch (error) {
-        res.status(404).json({ msg: 'Error occured while editing FAQ' })
+        res.status(404).json({ msg: 'Error occured while deleting FAQ' })
+    }
+
+})
+
+const createService = asyncHandler(async (req, res) => {
+    const { title, description, source } = req.body
+
+    if (!title) {
+        res.status(404).json({ msg: 'Please enter title' })
+    }
+
+    if (!description) {
+        res.status(404).json({ msg: 'Please enter description' })
+    }
+
+    const response = await Service.create({ title, description, source })
+
+    if (response) {
+        res.status(200).json({ message: 'service created successfully' })
+    }
+
+    res.status(404).json({ msg: 'Error occured while service' })
+})
+
+const getAllService = asyncHandler(async (req, res) => {
+    const response = await Service.find()
+    res.status(200).json(response)
+})
+
+const singleService = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    if (id.length !== 24) {
+        res.status(404).json({ message: 'Unable to find the service' })
+    }
+    const response = await Service.findById(id)
+    if (!response) {
+        res.status(404).json({ message: 'Unable to find the service' })
+    }
+    res.status(200).json(response)
+})
+
+const editService = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const { title, description, source } = req.body
+
+    if (id.length !== 24) {
+        res.status(404).json({ message: 'Unable to find the service' })
+    }
+
+    if (!title) {
+        res.status(404).json({ msg: 'Please enter title' })
+    }
+
+    if (!description) {
+        res.status(404).json({ msg: 'Please enter description' })
+    }
+
+    const serviceExist = await Service.findById(id)
+
+    if (!serviceExist) {
+        res.status(404).json({ message: 'Unable to find the service' })
+    }
+
+    const response = await Service.findByIdAndUpdate(id, { title, description, source })
+
+    if (response) {
+        res.status(200).json({ message: 'Service edited successfully' })
+    }
+
+    res.status(404).json({ msg: 'Error occured while editing service' })
+})
+
+const deleteService = asyncHandler(async (req, res) => {
+    const { id } = req.params
+
+    if (id.length !== 24) {
+        res.status(200).json({ message: 'Service deleted successfully' })
+    }
+
+    const faqExist = await Service.findById(id)
+
+    if (!faqExist) {
+        res.status(200).json({ message: 'Service deleted successfully' })
+    }
+
+    try {
+        await Service.findByIdAndDelete(id)
+        res.status(200).json({ message: 'Service deleted successfully' })
+    } catch (error) {
+        res.status(404).json({ msg: 'Error occured while deleting service' })
     }
 
 })
@@ -318,5 +409,10 @@ module.exports = {
     getAllGeneralFAQ,
     singleGeneralFAQ,
     editGeneralFAQ,
-    deleteGeneralFAQ
+    deleteGeneralFAQ,
+    createService,
+    getAllService,
+    singleService,
+    editService,
+    deleteService
 }

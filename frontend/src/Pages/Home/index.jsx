@@ -6,7 +6,7 @@ import Accordion from '../../components/accordion'
 import DateSelector from '../../components/DateSelector'
 import { NavHashLink } from 'react-router-hash-link'
 import { toast } from 'react-toastify'
-import { addContact, getGeneralFaq, getSteps, getWeightLossFaq } from '../../features/admin/adminSlice'
+import { addContact, getGeneralFaq, getServices, getSteps, getWeightLossFaq } from '../../features/admin/adminSlice'
 
 const services = [
   {
@@ -74,41 +74,41 @@ const services = [
 //   }
 // ]
 
-const generalfaq = [
-  {
-    serial: `01`,
-    title: `How do I pay my bill?`,
-    description: `Bill pay will be directly through our electronic medical record platform via the`,
-    link: `https://app2.rxnt.com/patientbillpay/#/`,
-    linktitle: `patient portal`
-  },
-  {
-    serial: `02`,
-    title: `How will I contact my healthcare provider?`,
-    description: `After completing the medical intake forms - you will be prompted to set up a patient portal through our electronic medical record platform. Here you will have access to direct messaging and scheduling with your provider. `
-  },
-  {
-    serial: `03`,
-    title: `Does Bee Well Health accept insurance?`,
-    description: `We do not accept any public or private health insurance plans, cost-sharing, or any other similar methods of payments. Clients are solely responsible for the cost of the service.
-    `
-  },
-  {
-    serial: `04`,
-    title: `Who can use Bee Well Health?`,
-    description: `You must be 18 years or older. You must be a resident or physically located in Florida. You must have a demonstrated need for treatment.`
-  },
-  {
-    serial: `05`,
-    title: `Do medication, labs, and imaging orders count towards my deductible?`,
-    description: `All medications, labs, and imaging orders that your insurance is billed for will count towards your insurance deductible.`
-  },
-  {
-    serial: `06`,
-    title: `Can Bee Well Health order referrals?`,
-    description: `If medically necessary, Bee Well Health can order referrals for physical therapy, occupation therapy, social services, and specialists. Schedule an appointment to discuss with your provider!`
-  }
-]
+// const generalfaq = [
+//   {
+//     serial: `01`,
+//     title: `How do I pay my bill?`,
+//     description: `Bill pay will be directly through our electronic medical record platform via the`,
+//     link: `https://app2.rxnt.com/patientbillpay/#/`,
+//     linktitle: `patient portal`
+//   },
+//   {
+//     serial: `02`,
+//     title: `How will I contact my healthcare provider?`,
+//     description: `After completing the medical intake forms - you will be prompted to set up a patient portal through our electronic medical record platform. Here you will have access to direct messaging and scheduling with your provider. `
+//   },
+//   {
+//     serial: `03`,
+//     title: `Does Bee Well Health accept insurance?`,
+//     description: `We do not accept any public or private health insurance plans, cost-sharing, or any other similar methods of payments. Clients are solely responsible for the cost of the service.
+//     `
+//   },
+//   {
+//     serial: `04`,
+//     title: `Who can use Bee Well Health?`,
+//     description: `You must be 18 years or older. You must be a resident or physically located in Florida. You must have a demonstrated need for treatment.`
+//   },
+//   {
+//     serial: `05`,
+//     title: `Do medication, labs, and imaging orders count towards my deductible?`,
+//     description: `All medications, labs, and imaging orders that your insurance is billed for will count towards your insurance deductible.`
+//   },
+//   {
+//     serial: `06`,
+//     title: `Can Bee Well Health order referrals?`,
+//     description: `If medically necessary, Bee Well Health can order referrals for physical therapy, occupation therapy, social services, and specialists. Schedule an appointment to discuss with your provider!`
+//   }
+// ]
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null)
@@ -130,7 +130,7 @@ const Home = () => {
   const { firstName, lastName, email, phone, appointtime, message } = inputValue
 
   const dispatch = useDispatch()
-  const { steps, msg, isError, isContactAdded, weightLossFaqs, generalFaqs } = useSelector((state) => state.admin)
+  const { steps, msg, isError, isContactAdded, weightLossFaqs, generalFaqs, services } = useSelector((state) => state.admin)
 
   useEffect(() => {
     if (isContactAdded) {
@@ -153,7 +153,8 @@ const Home = () => {
     if (!steps) dispatch(getSteps())
     if (!weightLossFaqs) dispatch(getWeightLossFaq())
     if (!generalFaqs) dispatch(getGeneralFaq())
-  }, [steps, dispatch, msg, isContactAdded, isError, weightLossFaqs, generalFaqs])
+    if (!services) dispatch(getServices())
+  }, [steps, dispatch, msg, isContactAdded, isError, weightLossFaqs, generalFaqs, services])
 
   const onChange = (e) => {
     const { name, value } = e.target
@@ -254,7 +255,7 @@ const Home = () => {
                   <p className='text-xl font-medium'>{service.title}</p>
                   <div className="bg-[#FFDE17] w-24 h-[2px] rounded"></div>
                 </div>
-                <p className={`text-[#969696] my-3 ${selectedItem === index ? '' : 'line-clamp-3'}`}>{service.desc}</p>
+                <p className={`text-[#969696] my-3 ${selectedItem === index ? '' : 'line-clamp-3'}`}>{service.description}</p>
                 <button onClick={() => viewClickHandler(service, index)} className='bg-[#FFDE17] py-2 px-6 rounded -mb-5 font-extrabold'>View All</button>
               </div>
             ))}
