@@ -78,12 +78,8 @@ const getContacts = async () => {
 }
 
 const getWeightLossFaq = async () => {
-    const token = JSON.parse(localStorage.getItem('user')).token
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    }
     try {
-        const response = await axios.get(API_URL + '/admin/weightlossfaq', config)
+        const response = await axios.get(API_URL + '/admin/weightlossfaq')
         return response.data
     } catch (error) {
         if (error.response.status === 404) {
@@ -163,12 +159,8 @@ const createWeightLossFaq = async (data) => {
 }
 
 const getGeneralFaq = async () => {
-    const token = JSON.parse(localStorage.getItem('user')).token
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    }
     try {
-        const response = await axios.get(API_URL + '/admin/generalfaq', config)
+        const response = await axios.get(API_URL + '/admin/generalfaq')
         return response.data
     } catch (error) {
         if (error.response.status === 404) {
