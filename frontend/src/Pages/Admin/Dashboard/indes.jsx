@@ -72,9 +72,12 @@ const Dashboard = () => {
 
     return (
         <div className='flex gap-2 min-h-[70vh]'>
-            <div className="w-64 flex flex-col justify-between bg-[rgba(132,191,181,0.6)]">
-                <button className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-white'>Home</button>
-                <button onClick={logoutHandler} className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-white'>Logout</button>
+            <div className="w-64 flex flex-col justify-between text-center bg-[rgba(132,191,181,0.6)]">
+                <div className="flex flex-col justify-between">
+                    <Link to='/admin/dashboard' className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-orange-500'>Home</Link>
+                    <Link to='/admin/blog' className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-white'>Blog</Link>
+                </div>
+                <Link onClick={logoutHandler} className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-white'>Logout</Link>
             </div>
             <div className="flex-1">
                 <div className="flex flex-wrap gap-3 my-5">

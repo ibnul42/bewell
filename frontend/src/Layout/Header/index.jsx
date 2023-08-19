@@ -12,10 +12,10 @@ const links = [
 
 const Header = ({ open, setOpen }) => {
   const location = useLocation()
-  const navLinkStyles = ({ isActive }) => {
+  const navLinkStyles = ({ isactive }) => {
     if (location.pathname !== '/') {
       return {
-        color: isActive ? "#fff" : "",
+        color: isactive ? "#fff" : "",
         // borderBottom: isActive ? "3px solid #6366f1" : null,
       }
     }

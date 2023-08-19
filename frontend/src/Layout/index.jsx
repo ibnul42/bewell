@@ -15,6 +15,9 @@ import EditWeightlossFaq from '../Pages/Admin/Dashboard/EditWeightlossFaq'
 import EditGeneralFaq from '../Pages/Admin/Dashboard/EditGeneralFaq'
 import CreateGeneralFaq from '../Pages/Admin/Dashboard/CreateGeneralFaq'
 import EditService from '../Pages/Admin/Dashboard/EditService'
+import Blog from '../Pages/Admin/Blog'
+import CreateBlog from '../Pages/Admin/Blog/CreateBlog'
+import EditBlog from '../Pages/Admin/Blog/EditBlog'
 const Layout = () => {
   const [open, setOpen] = useState(false)
 
@@ -30,6 +33,9 @@ const Layout = () => {
           <Route path='/blog' element={<BlogPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/admin/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path='/admin/blog' element={<ProtectedRoute><Blog /></ProtectedRoute>} />
+          <Route path='/admin/blog/create' element={<ProtectedRoute><CreateBlog /></ProtectedRoute>} />
+          <Route path='/admin/blog/:blog' element={<ProtectedRoute><EditBlog /></ProtectedRoute>} />
           <Route path='/admin/dashboard/:step' element={<ProtectedRoute><EditStep /></ProtectedRoute>} />
           <Route path='/admin/dashboard/loss-faq/create' element={<ProtectedRoute><CreateWeightlossFaq /></ProtectedRoute>} />
           <Route path='/admin/dashboard/loss-faq/:id' element={<ProtectedRoute><EditWeightlossFaq /></ProtectedRoute>} />

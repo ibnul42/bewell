@@ -22,12 +22,13 @@ const Login = () => {
   const { user, isLoading, isSuccess, isError, message, isLoggedIn } =
     useSelector((state) => state.auth)
 
-  const userData = localStorage.getItem('user')
+  // const userData = localStorage.getItem('user')
 
   useEffect(() => {
-    if (userData) {
-      navigate('/admin/dashboard')
-    } else if (isError) {
+    // if (userData) {
+    //   navigate('/admin/dashboard')
+    // } else
+     if (isError) {
       toast.error(message)
       dispatch(reset())
     } else if (isLoggedIn && isSuccess) {
@@ -38,7 +39,7 @@ const Login = () => {
     else if (user) {
       navigate("/admin/dashboard")
     }
-  }, [user, isError, message, dispatch, isLoggedIn, isSuccess, navigate, userData])
+  }, [user, isError, message, dispatch, isLoggedIn, isSuccess, navigate])
 
   const onChange = (e) => {
     const { name, value } = e.target
