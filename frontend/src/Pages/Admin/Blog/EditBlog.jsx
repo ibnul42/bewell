@@ -1,6 +1,11 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
+import { useDispatch, useSelector } from 'react-redux'
+import { editBlog, getSingleBlog, reset } from '../../../features/blog/blogSlice'
+import { useNavigate, useParams } from 'react-router-dom'
+import RenderText from '../../../components/RenderText'
+import { toast } from 'react-toastify'
 
 // Configure the toolbar options
 const toolbarOptions = [
@@ -11,11 +16,18 @@ const toolbarOptions = [
 ]
 
 const EditBlog = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const params = useParams()
+    const { id } = params
+
     const preset_key = import.meta.env.VITE_PRESET_KEY
     const cloud_name = import.meta.env.VITE_CLOUD_NAME
 
+    const [initial, setInitial] = useState(true)
     const [image, setImage] = useState()
     const [file, setFile] = useState()
+    const [value, setValue] = useState('')
     const [inputValue, setInputValue] = useState({
         title: '',
         description: '',
@@ -23,8 +35,31 @@ const EditBlog = () => {
 
     const { title, description } = inputValue
 
-    const [value, setValue] = useState('')
+    const { isSingleBlog, blog, isError, message, isBlogEdited } = useSelector((state) => state.blog)
 
+
+    useEffect(() => {
+        if (initial) {
+            setInitial(false)
+            dispatch(getSingleBlog(id))
+        } else if (isSingleBlog) {
+            setInputValue((prev) => ({
+                ...prev,
+                title: blog.title
+            }))
+            setValue(blog.description)
+            setImage(blog.source)
+            setFile(blog.source)
+            dispatch(reset())
+        } else if (isError) {
+            toast.error(message)
+            dispatch(reset())
+        } else if (isBlogEdited) {
+            toast.success(message)
+            dispatch(reset())
+            navigate('/admin/blog')
+        }
+    }, [dispatch, isSingleBlog, id, navigate, isBlogEdited, blog, isError, message, initial])
 
     const handleFile = (e) => {
         setFile(e.target.files[0])
@@ -32,12 +67,32 @@ const EditBlog = () => {
         setImage(URL.createObjectURL(selectedImage))
     }
     const uploadHandler = () => {
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('upload_preset', preset_key)
-        axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
-            .then(res => console.log(res.data.secure_url))
-            .catch(err => console.log(err))
+        if (!title || !value || !file) {
+            toast.error('Please fill all the fields')
+        } else if (typeof file === 'string') {
+            const data = {
+                title,
+                description: value,
+                source: file
+            }
+            dispatch(editBlog({ id: blog._id, data }))
+        } else {
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('upload_preset', preset_key)
+            axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
+                .then(res => {
+                    const data = {
+                        title,
+                        description: value,
+                        source: res.data.secure_url
+                    }
+                    dispatch(editBlog({ id: blog._id, data }))
+                })
+                .catch(err => {
+                    toast.error(err.response.data.error.message)
+                })
+        }
     }
     return (
         <div className='max-w-7xl mx-auto px-2 min-h-[70vh] flex flex-col items-center gap-3 py-5'>
@@ -76,7 +131,7 @@ const EditBlog = () => {
                 {image && <img src={image} alt="Uploaded" className='aspect-video object-cover object-center' style={{ marginTop: '20px', maxWidth: '100%' }} />}
             </div>
             <div className="w-96 z-50 flex justify-center">
-                    <button onClick={uploadHandler} className='border py-2 px-5 rounded cursor-pointer bg-[#A6CBC5] hover:bg-[#84BFB5] transition-all text-white'>SUBMIT</button>
+                <button onClick={uploadHandler} className='border py-2 px-5 rounded cursor-pointer bg-[#A6CBC5] hover:bg-[#84BFB5] transition-all text-white'>SUBMIT</button>
             </div>
         </div>
     )

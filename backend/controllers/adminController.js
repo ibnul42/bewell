@@ -59,7 +59,7 @@ const updateStep = asyncHandler(async (req, res) => {
 
     if (desc.length > 192) {
         res.status(404)
-        throw new Error('Characters must be at most 92 characters')
+        throw new Error('Characters must be at most 192 characters')
     }
 
     const stepExists = await Step.findById(step)

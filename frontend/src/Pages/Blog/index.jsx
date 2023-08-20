@@ -1,18 +1,63 @@
-import React from 'react'
-import { Helmet } from 'react-helmet-async'
+import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBlog } from '../../features/blog/blogSlice';
+import RenderText from '../../components/RenderText';
 
 const BlogPage = () => {
-    return (
-        <div className='h-full'>
-            <Helmet>
-                <title>Blog</title>
-                <link rel="canonical" href="" />
-            </Helmet>
-            <div className=" w-full h-full flex justify-center items-center">
-                <p className='py-10'>Coming Soon! Please 🐝 patient! Time is honey.</p>
-            </div>
-        </div>
-    )
-}
+  const dispatch = useDispatch();
 
-export default BlogPage
+  const { blogs } = useSelector((state) => state.blog);
+
+  useEffect(() => {
+    dispatch(getBlog());
+  }, [dispatch]);
+
+  // Function to convert ISO8601 date to "day month year" format
+  const formatCreatedAt = (isoDate) => {
+    const date = new Date(isoDate);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  };
+
+  return (
+    <div className='h-full'>
+      <Helmet>
+        <title>Blog</title>
+        <link rel='canonical' href='' />
+      </Helmet>
+      <div className='max-w-7xl mx-auto px-2'>
+        {blogs && blogs.length > 0 ? (
+          blogs.map((blog) => (
+            <div
+              key={blog.title}
+              className='grid grid-cols-2 my-5 gap-10 py-3 px-5 border border-[#90C3BB] rounded-md mx-2 shadow-[0_4px_3px_3px_rgba(0,0,0,0.1)]'
+            >
+              <div className='border-4 border-[#90C3BB] rounded-md overflow-hidden shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)]'>
+                <img
+                  src={blog.source}
+                  alt={blog.title}
+                  className='w-full aspect-video object-cover object-center'
+                />
+              </div>
+              <div className='space-y-2 h-auto flex flex-col justify-between'>
+                <p className='font-bold text-xs'>{formatCreatedAt(blog.createdAt)}</p>
+                <p className='text-2xl font-bold'>{blog.title}</p>
+                <p className='line-clamp-4'>
+                  {<RenderText htmlContent={blog.description} />}
+                </p>
+                <p className='font-bold'>by Beewell</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className='py-10 text-center'>
+            Coming Soon! Please 🐝 patient! Time is honey.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default BlogPage;

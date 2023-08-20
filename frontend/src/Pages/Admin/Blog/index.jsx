@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../../features/auth/authSlice'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { AiFillEdit } from 'react-icons/ai'
 import { MdDelete } from 'react-icons/md'
+import { deleteBlog, getBlog, reset } from '../../../features/blog/blogSlice'
+import RenderText from '../../../components/RenderText'
+import { toast } from 'react-toastify'
 
 const bloglist = [
     {
@@ -17,8 +20,32 @@ const bloglist = [
 const Blog = () => {
     const dispatch = useDispatch()
 
+    const [initial, setInitial] = useState(true)
+
+    const { blogs, isBlogDeleted, isError, message } = useSelector((state) => state.blog)
+
+    useEffect(() => {
+        if (initial) {
+            setInitial(false)
+            dispatch(getBlog())
+        } else if (isBlogDeleted) {
+            toast.success(message)
+            dispatch(reset())
+            dispatch(getBlog())
+        } else if (isError) {
+            dispatch(reset())
+            toast.error(message)
+        }
+    }, [initial, dispatch, isBlogDeleted, isError, message])
+
     const logoutHandler = () => {
         dispatch(logout())
+    }
+
+    const deleteBlogHandler = (item) => {
+        if (window.confirm('Are you sure you want to delete')) {
+            dispatch(deleteBlog(item._id))
+        }
     }
 
 
@@ -38,17 +65,6 @@ const Blog = () => {
                     </p>
                     <Link to="/admin/blog/create" className='py-2 px-6 rounded-full border hover:bg-slate-100'>Create</Link>
                 </div>
-                {/* <div className="grid grid-cols-2 gap-10 py-3 px-5 border border-[#90C3BB] rounded-md my-2 mx-2 shadow-[0_4px_3px_3px_rgba(0,0,0,0.1)]">
-                    <div className="border-4 border-[#90C3BB] rounded-md overflow-hidden shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)]">
-                        <img src="https://res.cloudinary.com/ibnulashir/image/upload/v1692353914/vstbxbnjqdft3igojytc.jpg" alt="name" className='w-full aspect-video object-cover object-center' />
-                    </div>
-                    <div className="space-y-2 h-auto flex flex-col justify-between">
-                        <p className='font-bold text-xs'>JUNE 20, 2023</p>
-                        <p className='text-2xl font-bold'>Recognizing and rewarding employees in a challenging economic environment</p>
-                        <p className='line-clamp-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, perferendis asperiores ipsam tempora ipsum quidem nihil fuga cum eum minima, nostrum voluptatibus autem nisi incidunt inventore odio quibusdam. Tempora, expedita non iste, obcaecati est hic, soluta doloremque magni debitis corrupti iusto illo!</p>
-                        <p className='font-bold'>by Beewell</p>
-                    </div>
-                </div> */}
                 <table
                     className="table-auto border my-5 border-primary mx-2 px-2"
                     style={{
@@ -70,24 +86,24 @@ const Blog = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {bloglist && bloglist.length > 0 ? (
-                            bloglist.map((item, index) => (
+                        {blogs && blogs.length > 0 ? (
+                            blogs.map((item, index) => (
                                 <tr key={index} className="even:bg-[#84BFB5] grid grid-cols-12">
                                     <td className="px-4 py-2 col-span-2 border-r border-primary flex items-center justify-center">
-                                        <img src={item.source} alt={item.title} className='rounded' />
+                                        <img src={item.source} loading='lazy' alt={item.title} className='rounded max-h-24' />
                                     </td>
                                     <td className="px-4 py-2 col-span-2 border-r border-primary flex items-center justify-center">
                                         <p>{item.title}</p>
                                     </td>
-                                    <td className="px-4 py-2 col-span-6 border-r border-primary flex items-center justify-center">
-                                        <p className='h-24 overflow-y-auto'>{item.description}</p>
+                                    <td className="px-0 py-2 col-span-6 border-r border-primary flex items-center justify-center">
+                                        <p className='px-4 h-24 overflow-x-hidden overflow-y-auto w-full'>{<RenderText htmlContent={item.description} />}</p>
                                     </td>
                                     <td className="px-4 py-2 col-span-2 flex justify-center items-center gap-3">
-                                        <Link to={`/admin/blog/${item.title}`}
+                                        <Link to={`/admin/blog/${item._id}`}
                                             className="px-4 py-1 rounded-full border border-primary hover:bg-primary text-primary font-medium cursor-pointer h-max"
                                         ><AiFillEdit /></Link>
                                         <button
-                                            // onClick={() => deleteFaqGeneral(item)}
+                                            onClick={() => deleteBlogHandler(item)}
                                             className="px-4 py-1 rounded-full border border-primary hover:bg-primary text-primary font-medium cursor-pointer h-max"
                                         ><MdDelete /></button>
                                     </td>

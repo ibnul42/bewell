@@ -3,6 +3,7 @@ const router = express.Router()
 const { registerUser, LoginUser, getMe, updateProfile } = require('../controllers/userController')
 const { protect } = require('../middleware/authMiddleware')
 const { getAllSteps, createStep, updateStep, getAllContacts, createContact, getSingleStep, getAllWeightLossFAQ, singleWeightLossFAQ, createWeightLossFAQ, editWeightLossFAQ, deleteWeightLossFAQ, createGeneralFAQ, getAllGeneralFAQ, singleGeneralFAQ, editGeneralFAQ, deleteGeneralFAQ, createService, getAllService, singleService, editService, deleteService } = require('../controllers/adminController')
+const { getAllBlogs, createBlog, editBlog, getSingleBlog, deleteBlog } = require('../controllers/blogController')
 
 router.get('/all-steps', getAllSteps)
 router.post('/create-step', createStep)
@@ -25,6 +26,11 @@ router.get('/service', getAllService)
 router.get('/service/:id', singleService)
 router.put('/service/:id', protect, editService)
 router.delete('/service/:id', protect, deleteService)
+router.get('/blogs', getAllBlogs)
+router.get('/blog/:id', getSingleBlog)
+router.post('/blog', protect, createBlog)
+router.put('/blog/:id', protect, editBlog)
+router.delete('/blog/:id', protect, deleteBlog)
 
 
 module.exports = router

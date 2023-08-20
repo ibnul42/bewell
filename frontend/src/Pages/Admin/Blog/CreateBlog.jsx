@@ -1,6 +1,10 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ReactQuill from 'react-quill'
+import { useNavigate } from 'react-router-dom'
+import { createBlog, reset } from '../../../features/blog/blogSlice'
+import { toast } from 'react-toastify'
 
 // Configure the toolbar options
 const toolbarOptions = [
@@ -11,19 +15,34 @@ const toolbarOptions = [
 ]
 
 const CreateBlog = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const preset_key = import.meta.env.VITE_PRESET_KEY
     const cloud_name = import.meta.env.VITE_CLOUD_NAME
 
     const [image, setImage] = useState()
     const [file, setFile] = useState()
+    const [value, setValue] = useState('')
     const [inputValue, setInputValue] = useState({
         title: '',
-        description: '',
     })
 
-    const { title, description } = inputValue
+    const { title } = inputValue
 
-    const [value, setValue] = useState('')
+
+    const { isBlogCreated, isError, message } = useSelector((state) => state.blog)
+
+    useEffect(() => {
+        if (isBlogCreated) {
+            toast.success(message)
+            dispatch(reset())
+            navigate('/admin/blog')
+        } else if (isError) {
+            toast.error(message)
+            dispatch(reset())
+        }
+    }, [isBlogCreated, dispatch, isError, message, navigate])
 
 
     const handleFile = (e) => {
@@ -32,12 +51,25 @@ const CreateBlog = () => {
         setImage(URL.createObjectURL(selectedImage))
     }
     const uploadHandler = () => {
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('upload_preset', preset_key)
-        axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
-            .then(res => console.log(res.data.secure_url))
-            .catch(err => console.log(err))
+        if (!title || !value || !file) {
+            toast.error('Please fill all the fields')
+        } else {
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('upload_preset', preset_key)
+            axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
+                .then(res => {
+                    const data = {
+                        title,
+                        description: value,
+                        source: res.data.secure_url
+                    }
+                    dispatch(createBlog(data))
+                })
+                .catch(err => {
+                    toast.error(err.response.data.error.message)
+                })
+        }
     }
     return (
         <div className='max-w-7xl mx-auto px-2 min-h-[70vh] flex flex-col items-center gap-3 py-5'>
@@ -76,7 +108,7 @@ const CreateBlog = () => {
                 {image && <img src={image} alt="Uploaded" className='aspect-video object-cover object-center' style={{ marginTop: '20px', maxWidth: '100%' }} />}
             </div>
             <div className="w-96 z-50 flex justify-center">
-                    <button onClick={uploadHandler} className='border py-2 px-5 rounded cursor-pointer bg-[#A6CBC5] hover:bg-[#84BFB5] transition-all text-white'>SUBMIT</button>
+                <button onClick={uploadHandler} className='border py-2 px-5 rounded cursor-pointer bg-[#A6CBC5] hover:bg-[#84BFB5] transition-all text-white'>SUBMIT</button>
             </div>
         </div>
     )
