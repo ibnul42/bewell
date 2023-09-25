@@ -306,7 +306,7 @@ const Home = () => {
           <div className="bg-[url('/assets/weightloss1.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className='text-xl text-white font-bold'>GLP-1 Weight Management</p>
             <div className="w-full text-white text-center">Semaglutide (Ozempic/Wegovy)</div>
-            <p className='text-3xl text-white font-bold'>$399/month</p>
+            <p className='text-3xl text-white font-bold'>$299/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & medication + supplies {` `}
                 {/* <span className='text-[#14B0B0]'>Semaglutide (Ozempic/Wegovy)</span> */}
