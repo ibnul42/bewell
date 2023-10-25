@@ -5,13 +5,13 @@ const RenderText = ({ htmlContent }) => {
     const options = {
         replace: (node) => {
             if (node.name === 'ul') {
-                return <ul className="list-disc ml-10 py-1 w-full">{domToReact(node.children)}</ul>;
+                return <ul className="list-disc ml-10 py-1">{domToReact(node.children)}</ul>;
             }
             if (node.name === 'ol') {
-                return <ol className="list-decimal ml-10 py-1 w-full">{domToReact(node.children)}</ol>;
+                return <ol className="list-decimal ml-10 py-1">{domToReact(node.children)}</ol>;
             }
             if (node.name === 'li') {
-                return <ol className="list-decimal ml-10 w-full">{domToReact(node.children)}</ol>;
+                return <ol className="list-decimal ml-10">{domToReact(node.children)}</ol>;
             }
             if (node.name === 'strong') {
                 return <strong className="font-bold">{domToReact(node.children)}</strong>;

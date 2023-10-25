@@ -18,6 +18,7 @@ import EditService from '../Pages/Admin/Dashboard/EditService'
 const Blog = lazy(() => import('../Pages/Admin/Blog'))
 import CreateBlog from '../Pages/Admin/Blog/CreateBlog'
 import EditBlog from '../Pages/Admin/Blog/EditBlog'
+import SingleBlog from '../Pages/SingleBlog'
 
 // const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'))
 const Layout = () => {
@@ -33,6 +34,7 @@ const Layout = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/blog' element={<BlogPage />} />
+          <Route path='/blog/:id' element={<SingleBlog />} />
           <Route path='/login' element={<Login />} />
           <Route path='/admin/dashboard' element={
             <ProtectedRoute>

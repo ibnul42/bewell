@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBlog } from '../../features/blog/blogSlice';
 import RenderText from '../../components/RenderText';
+import { Link } from 'react-router-dom';
 
 const BlogPage = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,10 @@ const BlogPage = () => {
                 <p className='line-clamp-4'>
                   {<RenderText htmlContent={blog.description} />}
                 </p>
-                <p className='font-bold'>by Beewell</p>
+                {/* <p className='font-bold'>by Beewell</p> */}
+                <div className="flex justify-end">
+                  <Link to={`/blog/${blog._id}`} className='border border-[#90C3BB] px-3 py-2 rounded hover:bg-[#90C3BB] hover:text-white'>See Details ...</Link>
+                </div>
               </div>
             </div>
           ))
