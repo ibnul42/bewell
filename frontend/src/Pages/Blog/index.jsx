@@ -32,9 +32,9 @@ const BlogPage = () => {
           blogs.map((blog) => (
             <div
               key={blog.title}
-              className='grid grid-cols-2 my-5 gap-10 py-3 px-5 border border-[#90C3BB] rounded-md mx-2 shadow-[0_4px_3px_3px_rgba(0,0,0,0.1)]'
+              className='grid grid-cols-1 md:grid-cols-2 my-5 gap-10 py-3 px-5 border border-[#90C3BB] rounded-md mx-2 shadow-[0_4px_3px_3px_rgba(0,0,0,0.1)]'
             >
-              <div className='border-4 border-[#90C3BB] rounded-md overflow-hidden shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)]'>
+              <div className='border-4 border-[#90C3BB] rounded-md overflow-hidden shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)] flex justify-center items-center'>
                 <img
                   src={blog.source}
                   alt={blog.title}
@@ -43,7 +43,7 @@ const BlogPage = () => {
               </div>
               <div className='space-y-2 h-auto flex flex-col justify-between'>
                 <p className='font-bold text-xs'>{formatCreatedAt(blog.createdAt)}</p>
-                <p className='text-2xl font-bold'>{blog.title}</p>
+                <p className='text-lg md:text-2xl font-bold'>{blog.title}</p>
                 <p className='line-clamp-4'>
                   {<RenderText htmlContent={blog.description} />}
                 </p>
