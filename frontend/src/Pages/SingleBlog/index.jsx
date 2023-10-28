@@ -49,7 +49,7 @@ const SingleBlog = () => {
   return (
     <div className='h-full'>
       <Helmet>
-        <title>BeeWell - {blog?.title}</title>
+        <title>BeeWell - {blog ? blog?.title : ''}</title>
         <link rel='canonical' href='' />
       </Helmet>
       <div className='max-w-7xl mx-auto px-2 min-h-[250px] flex'>

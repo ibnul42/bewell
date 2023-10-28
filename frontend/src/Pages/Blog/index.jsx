@@ -44,8 +44,9 @@ const BlogPage = () => {
               <div className='space-y-2 h-auto flex flex-col justify-between'>
                 <p className='font-bold text-xs'>{formatCreatedAt(blog.createdAt)}</p>
                 <p className='text-lg md:text-2xl font-bold'>{blog.title}</p>
-                <p className='line-clamp-4'>
+                <p className='line-clamp-4 h-[100px] overflow-hidden'>
                   {<RenderText htmlContent={blog.description} />}
+                  {/* {blog.description} */}
                 </p>
                 {/* <p className='font-bold'>by Beewell</p> */}
                 <div className="flex justify-end">
