@@ -259,16 +259,29 @@ const Home = () => {
                 <button onClick={() => viewClickHandler(service, index)} className='bg-[#FFDE17] py-2 px-6 rounded -mb-5 font-extrabold'>View All</button>
               </div>
             ))}
-          </div>
-          <div className="w-full bg-[#6CB4A8] py-7 px-3 flex flex-col gap-3 md:flex-row justify-between md:gap-10 md:justify-center items-center rounded-md text-white">
-            <div className="flex-shrink-0 text-3xl font-medium text-center md:px-5">
-              <p>Non-weight related</p>
-              <p>telehealth visits!</p>
+            <div className="min-w-[250px] max-w-[280px] rounded-lg shadow-lg hover:shadow-2xl border flex flex-col gap-2 items-center justify-between px-2 text-center my-10">
+              <img src='/assets/dot-physical.svg' className='w-24 h-24 -mt-12' alt="" />
+              <div className="w-full flex flex-col gap-1 items-center">
+                <p className='text-xl font-medium'>DOT Physical</p>
+                <div className="bg-[#FFDE17] w-24 h-[2px] rounded"></div>
+              </div>
+              <p className={`text-[#969696] my-3 ${selectedItem === 'dot' ? '' : 'line-clamp-3'}`}>
+                <p>You must complete the Health History section of the DOT Medical Examination Report in advance. Please bring this report to your visit for the provider to review.</p>
+                <Link to="/assets/report.pdf" target="_blank" className='block underline text-center font-semibold text-black py-1'>Report.pdf</Link>
+                <p>We will review your medical history, conduct a visual evaluation, and refer you for additional testing and diagnosis as needed. Following the exam, your provider will prepare a completed medical examination report form as part of your commercial driver's medical certification.</p>
+              </p>
+              <button onClick={() => viewClickHandler('service', 'dot')} className='bg-[#FFDE17] py-2 px-6 rounded -mb-5 font-extrabold'>View All</button>
             </div>
-            <div className="flex flex-col lg:flex-row lg:flex-wrap justify-end gap-3 md:gap-6">
+          </div>
+          <div className="bg-[#6CB4A8] py-7 px-3 flex flex-col gap-3 md:flex-row justify-between md:gap-10 md:justify-center rounded-md text-white">
+            <div className="text-3xl font-medium text-left md:px-5 flex items-center">
+              <p className='whitespace-nowrap'>Self Pay Rates</p>
+            </div>
+            <div className="flex flex-col lg:flex-row lg:flex-wrap lg:justify-center gap-3 md:gap-6">
               <button className='bg-[rgba(163,189,49,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$99</span><span>New Patient</span></button>
               <button className='bg-[rgba(219,150,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$80</span><span>Follow-up</span></button>
               <button className='bg-[rgba(239,80,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$65</span><span>Urgent Care</span></button>
+              <button className='bg-[#48397D] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$100</span><span>DOT Physical</span></button>
             </div>
           </div>
         </div>
@@ -282,7 +295,7 @@ const Home = () => {
         </div>
         <p className='text-[#666666] font-semibold text-xl text-center'>How weight loss subscription works</p>
         <div className="flex justify-center">
-          <p className='text-lg text-center text-[#666666] max-w-2xl'>Bee Well Health offers healthcare subscription services to our clients, providing access to high-quality practitioners for a fixed monthly price, no insurance needed, and no hidden fees. Cancel anytime! </p>
+          <p className='text-lg text-center text-[#666666] max-w-2xl'>Bee Well Health offers healthcare subscription services to our clients, providing access to high-quality practitioners for a fixed monthly price, no insurance needed, and no hidden fees. Cancel anytime!</p>
         </div>
         <div className="py-5 md:py-7 lg:py-20 flex flex-wrap gap-8 justify-center">
           {steps && steps.map((step, index) => (
@@ -316,7 +329,7 @@ const Home = () => {
           </div>
           <div className="bg-[url('/assets/weightloss2.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className='text-xl text-white font-bold'>Medical Weight Loss</p>
-            <div className="w-full text-white text-center">Phentermine, Contrave, Plenity</div>
+            <div className="w-full text-white text-center">Phentermine, Contrave, Qsymia</div>
             <p className='text-3xl text-white font-bold'>$80/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & electronically sent prescription {` `}

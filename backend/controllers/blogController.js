@@ -3,7 +3,7 @@ const Blog = require('../models/blogModal')
 
 const getAllBlogs = asyncHandler(async (req, res) => {
     const blogs = await Blog.find()
-    res.status(200).json(blogs)
+    res.status(200).json(blogs.reverse())
 })
 
 const getSingleBlog = asyncHandler(async (req, res) => {
