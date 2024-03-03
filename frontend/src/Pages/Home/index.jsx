@@ -274,8 +274,8 @@ const Home = () => {
             </div>
           </div>
           <div className="bg-[#6CB4A8] py-7 px-3 flex flex-col gap-3 md:flex-row justify-between md:gap-10 md:justify-center rounded-md text-white">
-            <div className="text-3xl font-medium text-left md:px-5 flex items-center">
-              <p className='whitespace-nowrap'>Self Pay Rates</p>
+            <div className="text-3xl font-medium text-left md:px-5 flex items-center justify-center">
+              <p className='whitespace-nowrap py-2'>Self Pay Rates</p>
             </div>
             <div className="flex flex-col lg:flex-row lg:flex-wrap lg:justify-center gap-3 md:gap-6">
               <button className='bg-[rgba(163,189,49,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$99</span><span>New Patient</span></button>
