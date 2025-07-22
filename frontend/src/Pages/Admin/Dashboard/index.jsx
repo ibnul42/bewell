@@ -76,6 +76,7 @@ const Dashboard = () => {
                 <div className="flex flex-col justify-between">
                     <Link to='/admin/dashboard' className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-orange-500'>Home</Link>
                     <Link to='/admin/blog' className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-white'>Blog</Link>
+                    <Link to='/admin/settings' className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-white'>Settings</Link>
                 </div>
                 <Link onClick={logoutHandler} className='py-2 bg-[rgba(132,191,181,0.7)] hover:bg-[rgba(132,191,181,0.85)] text-white'>Logout</Link>
             </div>

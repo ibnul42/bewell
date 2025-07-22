@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { NavHashLink } from 'react-router-hash-link'
 
 const links = [
@@ -7,7 +7,7 @@ const links = [
   { name: "Weight Loss Subscription", link: "/#weight-loss" },
   { name: "contact us", link: "/#contact-us" },
   { name: "FAQ", link: "/#faq" },
-  { name: "The Buzz", link: "/blog" },
+  // { name: "The Buzz", link: "/blog" },
 ]
 
 const Header = ({ open, setOpen }) => {

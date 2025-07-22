@@ -279,9 +279,9 @@ const Home = () => {
             </div>
             <div className="flex flex-col lg:flex-row lg:flex-wrap lg:justify-center gap-3 md:gap-6">
               <button className='bg-[rgba(163,189,49,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$99</span><span>New Patient</span></button>
-              <button className='bg-[rgba(219,150,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$80</span><span>Follow-up</span></button>
-              <button className='bg-[rgba(239,80,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$65</span><span>Urgent Care</span></button>
-              <button className='bg-[#48397D] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$100</span><span>DOT Physical</span></button>
+              <button className='bg-[rgba(219,150,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$65</span><span>Follow-up</span></button>
+              <button className='bg-[rgba(239,80,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$55</span><span>Urgent Care</span></button>
+              {/* <button className='bg-[#48397D] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$100</span><span>DOT Physical</span></button> */}
             </div>
           </div>
         </div>
@@ -319,7 +319,7 @@ const Home = () => {
           <div className="bg-[url('/assets/weightloss1.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className='text-xl text-white font-bold'>GLP-1 Weight Management</p>
             <div className="w-full text-white text-center">Semaglutide (Ozempic/Wegovy)</div>
-            <p className='text-3xl text-white font-bold'>$299/month</p>
+            <p className='text-3xl text-white font-bold'>$265/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & medication + supplies {` `}
                 {/* <span className='text-[#14B0B0]'>Semaglutide (Ozempic/Wegovy)</span> */}
@@ -330,7 +330,7 @@ const Home = () => {
           <div className="bg-[url('/assets/weightloss2.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className='text-xl text-white font-bold'>Medical Weight Loss</p>
             <div className="w-full text-white text-center">Phentermine, Contrave, Qsymia</div>
-            <p className='text-3xl text-white font-bold'>$80/month</p>
+            <p className='text-3xl text-white font-bold'>$65/month</p>
             <div className="py-10 mt-5">
               <p className='text-center'>Includes personalized telehealth appointments with provider & electronically sent prescription {` `}
                 {/* <span className='text-[#FD9177]'>Phentermine, Contrave, Plenty</span> */}

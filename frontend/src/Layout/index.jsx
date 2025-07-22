@@ -3,11 +3,10 @@ import Footer from './Footer'
 import Home from '../Pages/Home'
 import { Route, Routes } from 'react-router-dom'
 import { Suspense, lazy, useState } from 'react'
-import BlogPage from '../Pages/Blog'
+// import BlogPage from '../Pages/Blog'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import Login from '../Pages/Login'
-const Dashboard = lazy(() => import('../Pages/Admin/Dashboard/index'))
 import ProtectedRoute from '../utils/ProtectedRoute'
 import EditStep from '../Pages/Admin/Dashboard/EditStep'
 import CreateWeightlossFaq from '../Pages/Admin/Dashboard/CreateWeightlossFaq'
@@ -15,10 +14,12 @@ import EditWeightlossFaq from '../Pages/Admin/Dashboard/EditWeightlossFaq'
 import EditGeneralFaq from '../Pages/Admin/Dashboard/EditGeneralFaq'
 import CreateGeneralFaq from '../Pages/Admin/Dashboard/CreateGeneralFaq'
 import EditService from '../Pages/Admin/Dashboard/EditService'
-const Blog = lazy(() => import('../Pages/Admin/Blog'))
 import CreateBlog from '../Pages/Admin/Blog/CreateBlog'
 import EditBlog from '../Pages/Admin/Blog/EditBlog'
-import SingleBlog from '../Pages/SingleBlog'
+const Dashboard = lazy(() => import('../Pages/Admin/Dashboard/index'))
+const Blog = lazy(() => import('../Pages/Admin/Blog'))
+const Settings = lazy(() => import('../Pages/Admin/Settings'))
+// import SingleBlog from '../Pages/SingleBlog'
 
 // const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'))
 const Layout = () => {
@@ -33,8 +34,8 @@ const Layout = () => {
       <div className="flex-1 h-full">
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/blog' element={<BlogPage />} />
-          <Route path='/blog/:id' element={<SingleBlog />} />
+          {/* <Route path='/blog' element={<BlogPage />} />
+          <Route path='/blog/:id' element={<SingleBlog />} /> */}
           <Route path='/login' element={<Login />} />
           <Route path='/admin/dashboard' element={
             <ProtectedRoute>
@@ -46,6 +47,12 @@ const Layout = () => {
             <ProtectedRoute>
               <Suspense fallback={<p>Loading</p>}>
                 <Blog />
+              </Suspense>
+            </ProtectedRoute>} />
+            <Route path='/admin/settings' element={
+            <ProtectedRoute>
+              <Suspense fallback={<p>Loading</p>}>
+                <Settings />
               </Suspense>
             </ProtectedRoute>} />
           <Route path='/admin/blog/create' element={
