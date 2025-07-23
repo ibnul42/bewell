@@ -4,7 +4,7 @@ import { NavHashLink } from 'react-router-hash-link'
 
 const links = [
   { name: "services", link: "/#services" },
-  { name: "Weight Loss Subscription", link: "/#weight-loss" },
+  { name: "Weight Loss", link: "/#weight-loss" },
   { name: "contact us", link: "/#contact-us" },
   { name: "FAQ", link: "/#faq" },
   // { name: "The Buzz", link: "/blog" },
