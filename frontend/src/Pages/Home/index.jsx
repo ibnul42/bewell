@@ -437,7 +437,7 @@ const Home = () => {
                 </span>
                 <span className="text-[#14B0B0]"> shipped to your door </span>
               </p>
-              <p>
+              <p className="text-[13px] text-center">
                 *vial of medication can last 3-6 months depending on dosage
                 requirements for patient
               </p>
@@ -477,7 +477,7 @@ const Home = () => {
                 </span>
                 <span className="text-[#664F99]"> shipped to your door </span>
               </p>
-              <p>
+              <p className="text-[13px] text-center">
                 *vial of medication can last 3-6 months depending on dosage
                 requirements for patient
               </p>
