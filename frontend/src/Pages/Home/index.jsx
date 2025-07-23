@@ -259,7 +259,7 @@ const Home = () => {
                 <button onClick={() => viewClickHandler(service, index)} className='bg-[#FFDE17] py-2 px-6 rounded -mb-5 font-extrabold'>View All</button>
               </div>
             ))}
-            <div className="min-w-[250px] max-w-[280px] rounded-lg shadow-lg hover:shadow-2xl border flex flex-col gap-2 items-center justify-between px-2 text-center my-10">
+            {/* <div className="min-w-[250px] max-w-[280px] rounded-lg shadow-lg hover:shadow-2xl border flex flex-col gap-2 items-center justify-between px-2 text-center my-10">
               <img src='/assets/dot-physical.svg' className='w-24 h-24 -mt-12' alt="" />
               <div className="w-full flex flex-col gap-1 items-center">
                 <p className='text-xl font-medium'>DOT Physical</p>
@@ -271,7 +271,7 @@ const Home = () => {
                 <p>We will review your medical history, conduct a visual evaluation, and refer you for additional testing and diagnosis as needed. Following the exam, your provider will prepare a completed medical examination report form as part of your commercial driver's medical certification.</p>
               </p>
               <button onClick={() => viewClickHandler('service', 'dot')} className='bg-[#FFDE17] py-2 px-6 rounded -mb-5 font-extrabold'>View All</button>
-            </div>
+            </div> */}
           </div>
           <div className="bg-[#6CB4A8] py-7 px-3 flex flex-col gap-3 md:flex-row justify-between md:gap-10 md:justify-center rounded-md text-white">
             <div className="text-3xl font-medium text-left md:px-5 flex items-center justify-center">
@@ -280,7 +280,7 @@ const Home = () => {
             <div className="flex flex-col lg:flex-row lg:flex-wrap lg:justify-center gap-3 md:gap-6">
               <button className='bg-[rgba(163,189,49,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$99</span><span>New Patient</span></button>
               <button className='bg-[rgba(219,150,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$65</span><span>Follow-up</span></button>
-              <button className='bg-[rgba(239,80,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$55</span><span>Urgent Care</span></button>
+              <button className='bg-[rgba(239,80,0,1)] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$65</span><span>Urgent Care</span></button>
               {/* <button className='bg-[#48397D] border-4 border-white flex flex-col items-center py-4 md:px-5 rounded-md text-4xl font-medium text-center min-w-[280px]'><span>$100</span><span>DOT Physical</span></button> */}
             </div>
           </div>
