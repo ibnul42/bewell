@@ -463,7 +463,7 @@ const Home = () => {
 
           <div className="bg-[url('/assets/weightloss3.png')] bg-cover bg-center min-w-[280px] max-w-[350px] overflow-hidden rounded-lg py-8 px-5 md:px-8 flex flex-col gap-4 items-center">
             <p className="text-xl text-white font-bold">
-              GLP-2 Weight Management
+              GLP-1 Weight Management
             </p>
             <div className="w-full text-white text-center">
               Tirzepatide (Mounjaro/Zepbound)
